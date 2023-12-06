@@ -1,0 +1,63 @@
+/* global jQuery */
+(function ($) {
+  $(document).ready(function () {
+
+    /**
+     * @var $accordions {jQuery}
+     */
+    var $accordions = jQuery('.accordion');
+
+    var ids = [];
+
+    var toggleAccordion = function (accordion, forceOpen) {
+      if (accordion) {
+        if (forceOpen && $(accordion).hasClass('open')) {
+          return;
+        }
+        $(accordion).find('.accordion__content').slideToggle();
+        $(accordion).toggleClass('open');
+      }
+    };
+
+    var registerIds = function () {
+      $accordions.each(function (index, element) {
+        ids.push($(element).attr('id'));
+      });
+    };
+
+    var clickHandler = function (event) {
+      var target = event.target;
+
+      var hash = target.hash;
+
+      if (hash) {
+        hash = hash.replace('#', '');
+        if (ids.indexOf(hash) !== -1) {
+          if ($(target).parent().hasClass('accordion')) {
+            toggleAccordion($(target).parent(), false);
+          } else {
+            toggleAccordion(document.getElementById(hash), true);
+            ScrollHelper.scrollToElement(document.getElementById(hash), 80);
+          }
+          event.preventDefault();
+        }
+      }
+
+    };
+
+    if ($accordions.length) {
+      $('body').addClass('accordions-active');
+
+      registerIds();
+
+      $accordions.each(function (index, element) {
+        $(element).find('.accordion__content').hide();
+      });
+
+      $('body').on('click', 'a', function (event) {
+        clickHandler(event);
+      });
+    }
+
+  });
+}(jQuery));
