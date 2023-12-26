@@ -5,6 +5,7 @@ import 'package:savvy/customerpages/aboutblep.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:savvy/customerpages/feeding.dart';
 import 'package:savvy/customerpages/gromming/gromming.dart';
+import 'package:savvy/customerpages/gromming/grommingsection.dart';
 
 import 'package:savvy/customerpages/petfood.dart';
 import 'package:savvy/customerpages/why.dart';
@@ -249,7 +250,7 @@ class _ScreenHomeState extends State<ScreenHome> {
               ),
               InkWell(
                 onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const ScreenGromming()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Screengrooming()));
               },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

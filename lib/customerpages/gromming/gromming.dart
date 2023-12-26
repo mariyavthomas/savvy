@@ -1,97 +1,155 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:savvy/adminpages/database/product.dart';
+import 'package:savvy/adminpages/groomingsection/grommingdb/gromming.dart';
 import 'package:savvy/adminpages/groomingsection/grommingdb/grommingfun.dart';
-import 'package:savvy/customerpages/buy.dart';
-//import 'package:savvy/customerpages/gromming/grommingsection.dart';
-import 'package:savvy/list/grooming.dart';
-//import 'package:savvy/list/groomingsection.dart';
+import 'package:savvy/controller/user.controller.dart';
+import 'package:savvy/customerpages/gromming/grommingdetails.dart';
+import 'dart:io';
+
+import 'package:savvy/customerpages/productdetails.dart';
+import 'package:savvy/customerpages/user%20database/cart/cart.dart';
+import 'package:savvy/customerpages/user%20database/cart/cartfunction.dart';
+import 'package:savvy/customerpages/user%20database/commern/searchscreen.dart';
 
 class ScreenGromming extends StatefulWidget {
-  const ScreenGromming({super.key});
+  const ScreenGromming({Key? key}) : super(key: key);
 
   @override
   State<ScreenGromming> createState() => _ScreenGrommingState();
 }
 
 class _ScreenGrommingState extends State<ScreenGromming> {
-  TextEditingController searchController=TextEditingController();
-   late Box<Gromming>_grooming=Hive.box('gromming');
-   List<Gromming> filteredProductList = [];
+  GroHelper pdh = GroHelper();
+  TextEditingController searchController = TextEditingController();
+  // ignore: unused_field
+  late Box<Gromming> _grommingbox = Hive.box('gromming');
+  
+  
 
-   Color clr=Colors.black;
+
+  @override
+  void initState() {
+    super.initState();
+    pdh.getall2();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 238, 237, 237),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => searchscreen()));
+              },
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ))
+        ],
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
-        title:const Text("Gromming Section",style: TextStyle(color: Colors.black),),
+        title: Text(
+          'Grooming ',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: searchController,
-              onChanged: (value) {
-                // Call a function to filter the product list based on the search input
-               
-    //searchProducts1(searchController.text);
-                
-              
-              },
-              decoration: InputDecoration(
-                labelText: 'Search',
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
+          
+          // Horizontal Scrolling Listq
+          
+         SizedBox(
+          height: 10,
+         ),
           Expanded(
             child: ValueListenableBuilder(
               valueListenable: gromminglist,
-              builder: (context, gromminglist, Widget? child) {
-                return ListView.builder(
-                  itemCount: gromminglist.length,
-                  itemBuilder: (context, index) {
-                    final gromming = gromminglist[index];
-                    final imagePath = gromming.image;
+              builder: (context, List<Gromming> gromminglist, Widget? child) {
+                return Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      mainAxisExtent: 220,
+                    ),
+                    itemCount: gromminglist.length,
+                    itemBuilder: (context, index) {
+                      final gromming = gromminglist[index];
+                      final imagePath = gromming.image;
 
-                    return Container(
-                      width: double.infinity,
-                      child: Column(children: [
-                        Container(
-                          width: double.infinity,
-                          height: 201,
-                          child: imagePath != 0
-                              ? Image.file(
-                                  File(imagePath),
-                                )
-                              : Placeholder(),
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                      return GestureDetector(
+                        onTap: () {
+                          showdata1(
+                              gromming.grommingname,
+                              gromming.image,
+                              gromming.price,
+                              gromming.functionality,
+                              gromming.time.toString());
+                        },
+                        child: Container(
+                          //decoration: BoxDecoration(color: Colors.blue,border: Border.all(color: Colors.black)),
+                          child: Column(children: [
+                            SizedBox(
+                              height: 5,
                             ),
-                          ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.0),
+                                topRight: Radius.circular(10.0),
+                              ),
+                              child: imagePath != 0
+                                  ? Image.file(
+                                      File(imagePath),
+                                      height:
+                                          170, // Adjust the height as needed
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Placeholder(),
+                            ),
+                            Center(
+                              child: Center(
+                                child: Text(
+                                  "${gromming.grommingname}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Center(
+                              child: Text(
+                                " ₹${gromming.price}",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color.fromARGB(255, 211, 84, 6),
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ]),
                         ),
-                        Text("${gromming.grommingname}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text("${gromming.price}"),
-                        ElevatedButton.icon(
-                           style: ElevatedButton.styleFrom(
-                                    primary: Color.fromARGB(255, 53, 176, 178), // Set the background color here
-  ),
-                          onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ScreenPay()));
-                          }, icon: Icon(Icons.badge_sharp), label: Text('Buy')),
-
-                      ]),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 );
               },
             ),
@@ -101,12 +159,27 @@ class _ScreenGrommingState extends State<ScreenGromming> {
     );
   }
 
-  //  void searchProducts1(String value) {
-  //   final products = _grooming.values.toList();
-  //   final filteredProducts = products
-  //       .where((product) =>
-  //           gromming.grommingname.toLowerCase().contains(value.toLowerCase()))
-  //       .toList();
-  //   gromminglist.value = filteredProducts;
-  // }
+  void searchProducts(String value) {
+    final gromming = _grommingbox.values.toList();
+    final filteredProducts = gromming
+        .where((gromming) =>
+            gromming.grommingname.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    gromminglist.value = filteredProducts;
+  }
+
+  void showdata1(String name, String imagepath, String price, String discrp,
+      String category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScreenGrommingdetails(
+          grommingname: name,
+          imagePath: imagepath,
+          price: price,
+          functionality: discrp,
+        ),
+      ),
+    );
+  }
 }

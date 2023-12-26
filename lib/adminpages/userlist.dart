@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 //import 'package:hive_flutter/hive_flutter.dart';
@@ -14,12 +13,10 @@ class Userlist extends StatefulWidget {
 }
 
 class _UserlistState extends State<Userlist> {
-  
- 
   @override
   void initState() {
     super.initState();
-   getall3();
+    getall3();
   }
 
   @override
@@ -44,7 +41,7 @@ class _UserlistState extends State<Userlist> {
           'List of User',
           style: TextStyle(color: Colors.black),
         ),
-        
+        centerTitle: true,
       ),
       body: ValueListenableBuilder(
         valueListenable: userlist,
@@ -55,47 +52,39 @@ class _UserlistState extends State<Userlist> {
               final user = userslist[index];
               // final imagePath = gromming.image;
 
-              return Column(
-                children: [
-                  Card(
-                    
-                    elevation: 10,
-                    child: ListTile(
-                      leading: Column(
-                        
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 160),
-                            child: Text("${user.name}"),
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Card(
+                      elevation: 5,
+                      child: Container(
+                        width: 400,
+                        height: 90,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Center(child: Text("${user.name}")),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Center(child: Text("${user.number}")),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Center(child: Text("${user.email}")),
+                            ],
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 140),
-                            child: Text("${user.number}"),
-                          ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Text("${user.email}"),
-                          ),
-
-                        ],
-                        
+                        ),
                       ),
-
                     ),
-                    
-                  ),
-                  SizedBox(
-                    height: 10,
-                  )
-                ],
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
               );
-              
             },
           );
         },

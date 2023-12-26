@@ -238,6 +238,11 @@ class _AddgrommingState extends State<Addgromming> {
       functionality: function
     );
     grohelp.save(details);
+     ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('Grooming added successfully.'),
+    ),
+  );
   }
 }
 

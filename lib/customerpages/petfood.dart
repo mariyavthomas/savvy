@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:savvy/adminpages/category/categoryfun.dart';
+import 'package:savvy/adminpages/category/categoty.dart';
 import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/controller/user.controller.dart';
 import 'dart:io';
 
 import 'package:savvy/customerpages/productdetails.dart';
-import 'package:savvy/customerpages/user%20database/cart/cart.dart';
-import 'package:savvy/customerpages/user%20database/cart/cartfunction.dart';
-import 'package:savvy/customerpages/user%20database/commern/searchscreen.dart';
+import 'package:savvy/customerpages/user%20database/categoryscreen.dart';
 
+import 'package:savvy/customerpages/user%20database/commern/searchscreen.dart';
 
 class Screenpetfood extends StatefulWidget {
   const Screenpetfood({Key? key}) : super(key: key);
@@ -18,21 +19,22 @@ class Screenpetfood extends StatefulWidget {
 }
 
 class _ScreenpetfoodState extends State<Screenpetfood> {
-  
-  Pdhelper pdh = Pdhelper();
+ // Pdhelper pdh = Pdhelper();
   TextEditingController searchController = TextEditingController();
   // ignore: unused_field
   late Box<Product> _productBox = Hive.box('product');
-  int catenum=0;
-  List<String> image=[
-  'assets/image/food10.webp',
-  'assets/image/food2.webp',
-  'assets/image/food3.webp',
-  'assets/image/food4.webp',
-  'assets/image/food5.webp',
-  'assets/image/food6.webp',
+  CategoryHelper cate=CategoryHelper();
+ // late Box<Category1>_categorybox=Hive.box(dbcate);
+  int catenum = 0;
+  List<String> image = [
+    'assets/image/food10.webp',
+    'assets/image/food2.webp',
+    'assets/image/food3.webp',
+    'assets/image/food4.webp',
+    'assets/image/food5.webp',
+    'assets/image/food6.webp',
   ];
-  List<String>categorynames=[
+  List<String> categorynames = [
     'Dry Food',
     'wet Food',
     'Grain Free Food',
@@ -40,15 +42,13 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
     'Adult Food',
     'Vegetarian Food'
   ];
-  
+
   @override
   void initState() {
     super.initState();
-    pdh.getall1();
+    getall1();
+    cate.getallcategory();
   }
-
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +64,17 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
             Navigator.pop(context);
           },
         ),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>searchscreen()));
-        }, icon: Icon(Icons.search,color: Colors.black,))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => searchscreen()));
+              },
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ))
+        ],
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
         title: Text(
@@ -77,23 +85,6 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
       ),
       body: Column(
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: TextField(
-          //     controller: searchController,
-          //     onChanged: (value) {
-          //       // Call a function to filter the product list based on the search input
-          //      searchProducts(searchController.text);
-          //     },
-          //     decoration: InputDecoration(
-          //       labelText: 'Search',
-          //       border:
-          //           OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-          //       contentPadding:
-          //           EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-          //     ),
-          //   ),
-          // ),
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -105,33 +96,74 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
             ),
           ),
 
-          // Horizontal Scrolling Listq
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(5, (index) {
-                return Column(
-                  children: [
-                    Container(
-                      height: 60,
-                      width: 90,
-                      child: InkWell(
-                        onTap: (){
-                          
-                        },
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage(image[index]),
-                          radius: 30, // Adjust the radius as needed
-                        ),
-                      ),
-                    ),
-                    Text(categorynames[index]),
-                    
-                  ],
-                );
-              }),
+          // // Horizontal Scrolling Listq
+          // SingleChildScrollView(
+            
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(
+          //     children: List.generate(5, (index) {
+          //       return Column(
+          //         children: [
+          //           Container(
+          //             height: 60,
+          //             width: 90,
+          //             child: InkWell(
+          //               onTap: () {},
+          //               child: CircleAvatar(
+          //                 backgroundImage: AssetImage(),
+          //                 radius: 30, // Adjust the radius as needed
+          //               ),
+          //             ),
+          //           ),
+          //           Text(categorynames[index]),
+          //         ],
+          //       );
+          //     }),
+          //   ),
+          // ),
+          SizedBox(
+              height: 100,
+              child: ValueListenableBuilder(
+                  valueListenable: categorylist,
+                  builder: (context, List<Category1> categorylist2, Widget? child) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: categorylist2.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final addtocat = categorylist2.reversed.toList()[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ScreenCategory(
+                                              category1: addtocat.categoryname)));
+                                },
+                                child: CircleAvatar(
+                                    radius: 32,
+                                    backgroundImage:
+                                        FileImage(File(addtocat.catimage))),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                addtocat.categoryname,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  }),
             ),
-          ),
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -161,13 +193,12 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
 
                       return GestureDetector(
                         onTap: () {
-                       showdata1(
-                        product.productname,
-                        product.image,
-                        product.price,
-                        product.decripation,
-                        product.category
-                       );
+                          showdata1(
+                              product.productname,
+                              product.image,
+                              product.price,
+                              product.decripation,
+                              product.category);
                         },
                         child: Container(
                           //decoration: BoxDecoration(color: Colors.blue,border: Border.all(color: Colors.black)),
@@ -213,8 +244,6 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-                            
-                           
                           ]),
                         ),
                       );
@@ -228,7 +257,8 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
       ),
     );
   }
- void searchProducts(String value) {
+
+  void searchProducts(String value) {
     final products = _productBox.values.toList();
     final filteredProducts = products
         .where((product) =>
@@ -236,22 +266,19 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
         .toList();
     productlist.value = filteredProducts;
   }
-  void showdata1(String name, String imagepath,  String price,String discrp,
+
+  void showdata1(String name, String imagepath, String price, String discrp,
       String category) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => Screenpdetails(
           productname: name,
-          
           imagePath: imagepath,
-           price: price,
+          price: price,
           decripation: discrp,
-         
         ),
       ),
     );
   }
-  
-
-  }
+}

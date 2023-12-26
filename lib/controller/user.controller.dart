@@ -9,7 +9,7 @@ ValueNotifier<List<Product>> productlist = ValueNotifier([]);
 String dbname = 'dbname';
 
 // ignore: unused_element
-class Pdhelper{
+
 Future<void> save1(Product value) async {
   final save = await Hive.openBox<Product>(dbname);
   final id = await save.add(value);
@@ -42,7 +42,7 @@ Future<void> delete(int id) async {
  await remove.delete(id);
   getall1();
 }
-}
+
 
 
 

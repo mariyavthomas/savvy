@@ -38,6 +38,7 @@ class _GromminglistState extends State<Gromminglist> {
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
         title: Text('List of Grooming',style: TextStyle(color: Colors.black),),
+        centerTitle: true,
       ),
       body:  ValueListenableBuilder(
         valueListenable: gromminglist,
@@ -54,18 +55,46 @@ class _GromminglistState extends State<Gromminglist> {
                   startActionPane:
                       ActionPane(motion: const StretchMotion(), children: [
                     SlidableAction(
-                        backgroundColor: Color.fromARGB(255, 246, 99, 31),
+                        backgroundColor: Colors.red,
                         label: 'Delete',
                         autoClose: true,
                         icon: Icons.delete,
                         onPressed: (context) {
-                        grohelp.delete(gromming.id!);
+                        //grohelp.delete( context, gromming.id!);
+                        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Confirm Deletion"),
+              content: Text("Are you sure you want to delete this item?"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text("Cancel"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    grohelp.delete(context,gromming.id);
+                    Navigator.of(context).pop(); 
+                   
+                    // Close the dialog after deletion
+                  },
+                  child: Text("Delete"),
+                 
+                ),
+                
+              ],
+            );
+          },
+        );
                         })
                   ]),
                   endActionPane:
                       ActionPane(motion: const StretchMotion(), children: [
                     SlidableAction(
-                        backgroundColor: Color.fromARGB(255, 82, 103, 135),
+                        backgroundColor: Colors.green,
                         label: 'Edit',
                         icon: FontAwesomeIcons.edit,
                         autoClose: true,
@@ -86,16 +115,15 @@ class _GromminglistState extends State<Gromminglist> {
                         })
                   ]),
                   child: Container(
-                    width: double.infinity,
-                    height: 180,
+                    width: 400,
+                    height: 100,
                     child: Stack(
                       children: [
                         Positioned(
-                          left: 0,
-                          top: 0,
+                         
                           child: Container(
-                            width: 149,
-                            height: 201,
+                            width: 150,
+                            height: 101,
                             // ignore: unnecessary_null_comparison
                             child: imagePath != null
                                 ? Image.file(File(
@@ -109,21 +137,21 @@ class _GromminglistState extends State<Gromminglist> {
                           ),
                         ),
                         Positioned(
-                          left: 173,
-                          top: 62,
+                          left: 160,
+                          top: 20,
                           child: Text("${gromming.grommingname}",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),)
                         ),
                        
                         Positioned(
-                          left: 173,
-                          top: 100,
+                          left: 160,
+                          top: 50,
                           child: Text("₹${gromming.price}",style: TextStyle(fontWeight: FontWeight.bold),)
                         ),
-                        // Positioned(
-                        //   left: 173,
-                        //   top: 100,
-                        //   child: Text("₹${gromming.functionality}",style: TextStyle(fontWeight: FontWeight.bold),)
-                        // ),
+                        Positioned(
+                          left: 160,
+                          top: 70,
+                          child: Text("Time:${gromming.time}",style: TextStyle(fontWeight: FontWeight.bold),)
+                        ),
                       ],
                     ),
                   ),

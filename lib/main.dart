@@ -7,9 +7,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:savvy/adminpages/addproduct.dart';
 
 import 'package:savvy/adminpages/adminhome.dart';
+import 'package:savvy/adminpages/category/categoty.dart';
 import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/adminpages/groomingsection/grommingdb/gromming.dart';
 import 'package:savvy/customerpages/addressdb/address.dart';
+import 'package:savvy/customerpages/gromming/grrombook.dart';
 //import 'package:savvy/adminpages/repositary/box.dart';
 //import 'package:savvy/customerpages/addtocart.dart';
 //import 'package:savvy/adminpages/database/logindb.dart';
@@ -39,9 +41,11 @@ void main() async {
   Hive.registerAdapter(AddressAdapter());
   Hive.registerAdapter(FavoriteAdapter());
  Hive.registerAdapter(CartAdapter());
+ Hive.registerAdapter(Category1Adapter());
+ Hive.registerAdapter(BookgromAdapter());
   runApp( MaterialApp(
     
-    home: LoginForm(),
+    home: ScreenSpalsh(),
     debugShowCheckedModeBanner: false,
   ));
 }

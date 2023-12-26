@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
-import 'package:savvy/adminpages/database/product.dart';
-//import 'package:savvy/customerpages/addtocart.dart';
-import 'package:savvy/customerpages/buy.dart';
 import 'package:savvy/customerpages/favorite/addwishlist.dart';
+
+
+//import 'package:savvy/customerpages/addtocart.dart';
+
+import 'package:savvy/customerpages/saveaddress.dart';
 
 import 'user database/cart/cart.dart';
 import 'user database/cart/cartfunction.dart';
@@ -49,6 +50,7 @@ class _ScreenpdetailsState extends State<Screenpdetails> {
     // var details;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
           widget.productname!,
@@ -85,8 +87,8 @@ class _ScreenpdetailsState extends State<Screenpdetails> {
                       widget.colors= Colors.white;
                     }
                   });
-                //  addfav_button(widget.productname,context);
-                //  print(widget.productname);
+                 addfav_button(widget.productname,context);
+                 print(widget.productname);
                 },
                 icon: Icon(
                   Icons.favorite,
@@ -170,10 +172,10 @@ class _ScreenpdetailsState extends State<Screenpdetails> {
                       backgroundColor: MaterialStatePropertyAll(Colors.green),
                       fixedSize: MaterialStatePropertyAll(Size(205, 50))),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ScreenPay()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => Screenaddress(address: 'address',)));
                   },
                   child: const Text('Place Order',style: TextStyle(fontSize: 17),))),
                    Align(

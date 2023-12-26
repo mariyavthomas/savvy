@@ -18,7 +18,7 @@ class GroHelper{
       price: data.price,
       functionality: data.functionality,
       image: data.image,
-      id: data.id,
+      id: id,
       time: data.time,
     ));
     getall2();
@@ -32,8 +32,8 @@ class GroHelper{
     gromminglist.notifyListeners();
   }
   
-  Future<void>delete(int id)async{
-    final remove=await Hive.openBox(dbgroom);
+  Future<void>delete( context, int ?id)async{
+    final remove=await Hive.openBox<Gromming>(dbgroom);
     await remove.delete(id);
     getall2();
   }

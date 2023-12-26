@@ -2,6 +2,7 @@
 
 //import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:savvy/customerpages/login.dart';
 import 'package:savvy/main.dart';
@@ -31,30 +32,31 @@ class _ScreenSpalshState extends State<ScreenSpalsh> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: Column(children: [
-          Center(
-            child: Image.network('https://i.pinimg.com/originals/af/8f/6c/af8f6c1b9db5b1da36069285ee82c402.gif',
-                width: 500,
-                height: 700,
+      child: Container(
+        width: 200,
+        height: 200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset('assets/image/dog.json', 
                 ),
-            
-          ),
-        
-        // SizedBox(
-        //   width: 258.0,
-        //   child: TextLiquidFill(
-        //     text: 'SAVVY',
-        //     waveColor: Color.fromARGB(255, 91, 59, 128),
-        //     boxBackgroundColor: const Color.fromARGB(255, 255, 252, 252),
-        //     textStyle: const TextStyle(
-        //         fontSize: 50.0,
-        //         fontWeight: FontWeight.bold,
-        //         fontStyle: FontStyle.italic),
-        //     boxHeight: 300.0,
-        //   ),
-        // ),
-    
-      ]),
+          
+          // SizedBox(
+          //   width: 258.0,
+          //   child: TextLiquidFill(
+          //     text: 'SAVVY',
+          //     waveColor: Color.fromARGB(255, 91, 59, 128),
+          //     boxBackgroundColor: const Color.fromARGB(255, 255, 252, 252),
+          //     textStyle: const TextStyle(
+          //         fontSize: 50.0,
+          //         fontWeight: FontWeight.bold,
+          //         fontStyle: FontStyle.italic),
+          //     boxHeight: 300.0,
+          //   ),
+          // ),
+          
+        ]),
+      ),
     ));
   }
 

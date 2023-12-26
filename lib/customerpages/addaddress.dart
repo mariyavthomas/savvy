@@ -13,17 +13,17 @@ class Screenaddaddress extends StatefulWidget {
 }
 
 class _ScreenaddaddressState extends State<Screenaddaddress> {
-  AddressHel addr=AddressHel();
+  AddressHel addr = AddressHel();
   bool isPinCode(String input) =>
-    RegExp(r'^[1-9]\d{2}\s?\d{3}$').hasMatch(input);
+      RegExp(r'^[1-9]\d{2}\s?\d{3}$').hasMatch(input);
 
   bool isEmail(String input) => EmailValidator.validate(input);
-   final TextEditingController  addnameController=TextEditingController();
-   final TextEditingController housenameController=TextEditingController();
-   final TextEditingController pincodeController=TextEditingController();
-   final TextEditingController postController =TextEditingController();
-   final TextEditingController disController=TextEditingController();
-  final formkey=GlobalKey<FormState>();
+  final TextEditingController addnameController = TextEditingController();
+  final TextEditingController housenameController = TextEditingController();
+  final TextEditingController pincodeController = TextEditingController();
+  final TextEditingController postController = TextEditingController();
+  final TextEditingController disController = TextEditingController();
+  final formkey = GlobalKey<FormState>();
   @override
   void dispose() {
     addnameController.dispose();
@@ -33,18 +33,21 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
     disController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
-
-        title:const Text('Add address',style: TextStyle(color: Colors.black),),
-        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.save))],
+        title: const Text(
+          'Add address',
+          style: TextStyle(color: Colors.black),
+        ),
+        //actions: [IconButton(onPressed: () {}, icon: Icon(Icons.save))],
       ),
-      body:  Center(
+      body: Center(
         child: Card(
           elevation: 20,
           child: Container(
@@ -56,8 +59,8 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                 key: formkey,
                 child: ListView(
                   children: [
-                   
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a address name';
@@ -71,9 +74,9 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       decoration: InputDecoration(
                           labelText: "Username",
                           labelStyle: TextStyle(
-                              color: Colors.grey,
-                             // fontWeight: FontWeight.w800
-                              ),
+                            color: Colors.grey,
+                            // fontWeight: FontWeight.w800
+                          ),
                           hintText: "Enter UserName",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
@@ -88,6 +91,7 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       height: 10,
                     ),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter password';
@@ -101,9 +105,9 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       decoration: InputDecoration(
                           labelText: "House Name",
                           labelStyle: TextStyle(
-                              color: Colors.grey,
-                             // fontWeight: FontWeight.w800
-                              ),
+                            color: Colors.grey,
+                            // fontWeight: FontWeight.w800
+                          ),
                           hintText: "Enter House Name",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
@@ -118,13 +122,14 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       height: 10,
                     ),
                     TextFormField(
-                      controller:pincodeController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: pincodeController,
                       decoration: InputDecoration(
                           labelText: "PIN Number",
                           labelStyle: TextStyle(
-                              color:Colors.grey,
-                             // fontWeight: FontWeight.w800
-                              ),
+                            color: Colors.grey,
+                            // fontWeight: FontWeight.w800
+                          ),
                           hintText: "Enter your Pin Number",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
@@ -148,8 +153,8 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                     SizedBox(
                       height: 10,
                     ),
-                    
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter password';
@@ -163,9 +168,9 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       decoration: InputDecoration(
                           labelText: "Post of office",
                           labelStyle: TextStyle(
-                              color: Colors.grey,
-                             // fontWeight: FontWeight.w800
-                              ),
+                            color: Colors.grey,
+                            // fontWeight: FontWeight.w800
+                          ),
                           hintText: "Enter Post",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
@@ -180,6 +185,7 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       height: 20,
                     ),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter password';
@@ -193,9 +199,9 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       decoration: InputDecoration(
                           labelText: "District",
                           labelStyle: TextStyle(
-                              color: Colors.grey,
-                             // fontWeight: FontWeight.w800
-                              ),
+                            color: Colors.grey,
+                            // fontWeight: FontWeight.w800
+                          ),
                           hintText: "Enter District",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
@@ -210,19 +216,19 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       height: 20,
                     ),
                     ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white)),
-                    onPressed: () {
-                      if (formkey.currentState!.validate()) {
-                        formkey.currentState!.save();
-                        addaddress();
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: Text('Add Address'))
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white)),
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            formkey.currentState!.save();
+                            addaddress();
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: Text('Add Address'))
                   ],
                 ),
               ),
@@ -232,23 +238,49 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
       ),
     );
   }
+
   void addaddress() async {
-    
-    
     // ignore: unused_local_variable
     final addname = addnameController.text;
     final housename = housenameController.text;
-    final pincode=pincodeController.text;
-    final post=postController.text;
-    final dis=disController.text;
+    final pincode = pincodeController.text;
+    final post = postController.text;
+    final dis = disController.text;
     final details = Address(
-     addname: addname,
-     housename: housename,
-     pincode: pincode,
-     post: post,
-     dis: dis,
-     id:-1
-    );
+        addname: addname,
+        housename: housename,
+        pincode: pincode,
+        post: post,
+        dis: dis,
+        id: -1);
     addr.save(details);
+     ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('Address added successfully.'),
+    ),
+  );
   }
-}
+// ignore: unused_element
+
+
+  }
+
+// void showAlertDialog(BuildContext context) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text('Success'),
+//         content: Text('Product added successfully.'),
+//         actions: <Widget>[
+//           TextButton(
+//             onPressed: () {
+//               Navigator.of(context).pop();
+//             },
+//             child: Text('OK'),
+//           ),
+//         ],
+//       );
+//     },
+//   );
+ //}

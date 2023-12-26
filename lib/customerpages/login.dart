@@ -42,23 +42,23 @@ class _LoginFormState extends State<LoginForm> {
         await _sharedPrefs.setBool(Save_key, true);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomeadimScreen(),));
-      } else {}
-      //  showDialog(
-      //      context: context,
-      //      builder: (context) {
-      //        return AlertDialog(
-      //          title: const Text('Error'),
-      //          content: Text('Invalid email or password'),
-      //          actions: [
-      //            TextButton(
-      //                onPressed: () {
-      //                  Navigator.pop(context);
-      //                },
-      //                child: Text('OK'))
-      //          ],
-      //        );
-      //      });
-      //}
+      } else {
+       showDialog(
+           context: context,
+           builder: (context) {
+             return AlertDialog(
+               title: const Text('Error'),
+               content: Text('Invalid email or password'),
+               actions: [
+                 TextButton(
+                     onPressed: () {
+                       Navigator.pop(context);
+                     },
+                     child: Text('OK'))
+               ],
+             );
+           });
+      }
       login(
         emailController.text,
         passwordController.text,
@@ -252,22 +252,6 @@ class _LoginFormState extends State<LoginForm> {
         MaterialPageRoute(builder: (context) => const MyApp()),
       );
      } 
-     //else {
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return AlertDialog(
-    //         title: const Text('Error'),
-    //         content: const Text('Invalid email or password'),
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () => Navigator.pop(context),
-    //             child: const Text('OK'),
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
+    
   }
 }

@@ -1,88 +1,102 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:savvy/customerpages/pay.dart';
 
-class ScreenPay extends StatefulWidget {
-  const ScreenPay({Key? key}) : super(key: key);
+import 'user database/cart/bottamcart.dart';
 
+class CartPaymentScreen extends StatefulWidget {
+  final dynamic totelPrice;
+  final int index;
+  CartPaymentScreen({
+    required this.address,
+    super.key,
+    required this.index,
+    required this.totelPrice,
+  });
+  final address;
   @override
-  State<ScreenPay> createState() => _ScreenPayState();
+  State<CartPaymentScreen> createState() => _CartPaymentScreenState();
 }
 
-class _ScreenPayState extends State<ScreenPay> {
-  String? paymentMethod;
-
-  List<String> paymentMethods = [
-    'Cash on Delivery',
-    'UPI Payment',
-    'Net Banking',
-    'Credit/Debit/ATM Card'
-  ];
+class _CartPaymentScreenState extends State<CartPaymentScreen> {
+  String method = 'val';
+  int currentIndex = 0;
+  CarouselController carouselController = CarouselController();
+  String groupValue = 'Yes';
+  bool? allow = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
+        centerTitle: true,
+        title: Text('Payment',style: TextStyle(color: Colors.black),),
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
-        title: const Text('Payment', style: TextStyle(color: Colors.black)),
       ),
-      body: Stack(
+      body: ListView(
         children: [
-          ListView(
-            children: [
-              const SizedBox(height: 10),
-              const Divider(thickness: 3),
-              // Create a separate group for each set of radio buttons
-              buildRadioGroup('UPI'),
-              buildRadioGroup('Wallets'),
-              buildRadioGroup('Credit/Debit/ATM Card'),
-              buildRadioGroup('Net Banking'),
-              buildRadioGroup('Cash on Delivery'),
-              // ... (existing code for TextFormField widgets)
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(const Size(150, 50)),
-                backgroundColor: MaterialStatePropertyAll(Colors.green),
-              ),
-              onPressed: () {
-                if (paymentMethod != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ScreenPays()),
-                  );
-                } else {
-                  // Show an error message or handle the case where no payment method is selected
-                }
-              },
+          const SizedBox(height: 10),
 
-              child: const Text('Pay'),
+          ListTile(
+            leading: Radio(
+                value: 'Now',
+                groupValue: groupValue,
+                onChanged: (value) {
+                  setState(() {
+                    groupValue = value!;
+                  });
+                }),
+            title: const Text('UPI'),
+            trailing: const SizedBox(
+              width: 100,
             ),
           ),
-          
-        ],
-      ),
-    );
-  }
 
-  Widget buildRadioGroup(String label) {
-    return ListTile(
-      leading: Radio(
-        value: label,
-        groupValue: paymentMethod,
-        onChanged: (value) {
-          setState(() {
-            paymentMethod = value;
-          });
-        },
-      ),
-      title: Text(label),
-      trailing: const SizedBox(
-        width: 100,
+          ListTile(
+            leading: Radio(
+                value: 'Now1',
+                groupValue: groupValue,
+                onChanged: (value) {
+                  setState(() {
+                    groupValue = value!;
+                  });
+                }),
+            title: const Text('Credit/Debit/ATM Card'),
+            subtitle:
+                const Text('Add and secure your card as per RBI quidelines'),
+          ),
+          ListTile(
+            leading: Radio(
+                value: 'Now2',
+                groupValue: groupValue,
+                onChanged: (value) {
+                  setState(() {
+                    groupValue = value!;
+                  });
+                }),
+            title: const Text('Net Banking'),
+          ),
+          ListTile(
+            leading: Radio(
+                value: 'Now3',
+                groupValue: groupValue,
+                onChanged: (value) {
+                  setState(() {
+                    groupValue = value!;
+                  });
+                }),
+            title: const Text('Cash on Delivery'),
+          ),
+
+          //CartPayDelCard(widget: widget, allow: allow),
+          CartPaymBottom(
+            address: widget.address,
+            allow: allow,
+            widget: widget,
+            groupValue: groupValue,
+          ),
+        ],
       ),
     );
   }

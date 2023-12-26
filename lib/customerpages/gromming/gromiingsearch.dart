@@ -4,23 +4,26 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:savvy/adminpages/database/product.dart';
+import 'package:savvy/adminpages/groomingsection/grommingdb/gromming.dart';
+import 'package:savvy/adminpages/groomingsection/grommingdb/grommingfun.dart';
 import 'package:savvy/controller/user.controller.dart';
+import 'package:savvy/customerpages/gromming/grommingdetails.dart';
 import 'package:savvy/customerpages/productdetails.dart';
 
 // ignore: must_be_immutable
-class searchscreen extends StatefulWidget {
-  searchscreen({Key? key}) : super(key: key);
+class searchgromm extends StatefulWidget {
+  searchgromm({Key? key}) : super(key: key);
 
   Color colorss = Colors.white;
 
   @override
-  State<searchscreen> createState() => _searchscreenState();
+  State<searchgromm> createState() => _searchgrommState();
 }
 
-class _searchscreenState extends State<searchscreen> {
+class _searchgrommState extends State<searchgromm> {
   
 //  Pdhelper sera=Pdhelper();
-  late Box<Product> _productBox = Hive.box(dbname);
+  late Box<Gromming> _grommingBox = Hive.box(dbgroom);
   Color colorss = Colors.white;
   TextEditingController searchController = TextEditingController();
   
@@ -69,24 +72,24 @@ class _searchscreenState extends State<searchscreen> {
           ),
           Expanded(
             child: ValueListenableBuilder(
-              valueListenable: productlist,
-              builder: (context, List<Product> adminlist, Widget? child) {
-                if (adminlist.isEmpty) {
+              valueListenable: gromminglist,
+              builder: (context, List<Gromming> gromminglist, Widget? child) {
+                if (gromminglist.isEmpty) {
                   return Center(
                     child: Text( 'No Search Product'),
                   );
                 } else {
                   return GridView.builder(
-                    itemCount: adminlist.length,
+                    itemCount: gromminglist.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 2 / 3,
                       crossAxisCount: 2,
                     ),
                     itemBuilder: (context, index) {
-                      final product = adminlist[index];
-                      final imagePath = product.image;
+                      final gromming = gromminglist[index];
+                      final imagePath = gromming.image;
 // Updated image path as a File
-                      if (productlist.value.isEmpty) {
+                      if (gromminglist.isEmpty) {
                         setState(() {});
                         return Center(
                           child: Image.asset('images/no_result.gif'),
@@ -98,11 +101,12 @@ class _searchscreenState extends State<searchscreen> {
                                 child: InkWell(
                                     onTap: () {
                                       showDatas(
-                                        product.productname,
-                                        product.image,
-                                        product.decripation,
-                                        product.price,
-                                        product.category,
+                                        gromming.grommingname,
+                                        gromming.image,
+                                        gromming.functionality,
+                                        gromming.price,
+                                        gromming.functionality
+                                       
                                       );
                                     },
                                     child: Column(children: [
@@ -127,7 +131,7 @@ class _searchscreenState extends State<searchscreen> {
                             Center(
                               child: Center(
                                 child: Text(
-                                  "${product.productname}",
+                                  "${gromming.grommingname}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
@@ -140,7 +144,7 @@ class _searchscreenState extends State<searchscreen> {
                             ),
                             Center(
                               child: Text(
-                                " ₹${product.price}",
+                                " ₹${gromming.price}",
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: Color.fromARGB(255, 211, 84, 6),
@@ -164,15 +168,15 @@ class _searchscreenState extends State<searchscreen> {
     );
   }
 
-  void showDatas(String name, String imagepath, String discrp, String price,
+  void showDatas(String name,  String discrp, String price,String image,
       String colorss) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Screenpdetails(
-         decripation: discrp,
-         imagePath: imagepath,
-         productname: name,
+        builder: (context) => ScreenGrommingdetails(
+         functionality: discrp,
+        imagePath: image,
+         grommingname: name,
          price: price,
         ),
       ),
@@ -180,11 +184,11 @@ class _searchscreenState extends State<searchscreen> {
   }
 
   void searchProducts(String value) {
-    final products = _productBox.values.toList();
-    final filteredProducts = products
-        .where((product) =>
-            product.productname.toLowerCase().contains(value.toLowerCase()))
+    final gromming = _grommingBox.values.toList();
+    final filteredProducts = gromming
+        .where((grommings) =>
+            grommings.grommingname.toLowerCase().contains(value.toLowerCase()))
         .toList();
-    productlist.value = filteredProducts;
+    gromminglist.value = filteredProducts;
   }
 }

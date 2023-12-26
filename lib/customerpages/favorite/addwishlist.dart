@@ -8,8 +8,8 @@ import 'favoritefunctions.dart';
 
 
 void addfav_button(Product addproducts, BuildContext context) async {
-  await Hive.openBox<Favorite>(dbname);
-  final addfavBox = Hive.box<Favorite>(dbname);
+  await Hive.openBox<Favorite>('fav');
+  final addfavBox = Hive.box<Favorite>('fav');
 
   final favexists =
       addfavBox.values.any((user) => user.productname == addproducts.productname);
@@ -39,7 +39,7 @@ void addfav_button(Product addproducts, BuildContext context) async {
 //delete wishlist
 
 void deletefav(int id) async {
-  final remove = await Hive.openBox<Favorite>(dbname);
+  final remove = await Hive.openBox<Favorite>('fav');
   remove.delete(id);
   getallfav();
 }

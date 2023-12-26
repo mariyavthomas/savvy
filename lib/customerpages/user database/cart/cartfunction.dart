@@ -39,6 +39,7 @@ Future<void> deleteCart(int id) async {
 
 Future<void>upgadecart(id,Cart value)async{
   final update=await Hive.openBox<Cart>('cart');
+  
   if(update.containsKey(id)){
     await update.put(id, value);
     int index =addcartlist.value.indexWhere((element) => element.id==id);

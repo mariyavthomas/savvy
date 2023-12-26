@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:savvy/customerpages/editprofilepage.dart';
+import 'package:savvy/customerpages/user%20database/editingprofile.dart';
 import 'package:savvy/customerpages/user%20database/logindatabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,11 +65,17 @@ class _profilescreenState extends State<profilescreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      Editprofilepage(),
+                      EditProfileScreen(currentUser: currentUser),
                 ),
+
               );
             },
           ),
+          IconButton(onPressed: (){
+            setState(() {
+              
+            });
+          }, icon: Icon(Icons.refresh,color: Colors.black,))
         ],
       ),
       body: Column(

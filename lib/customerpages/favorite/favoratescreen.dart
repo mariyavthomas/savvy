@@ -1,11 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:savvy/customerpages/favorite/favorite.dart';
+import 'package:savvy/customerpages/favorite/favoritefunctions.dart';
 
 import 'curomwidgetproduct.dart';
 
-Color colorss = Colors.red;
+//Color colorss = Colors.red;
 
 class favourts extends StatefulWidget {
   const favourts({super.key});
@@ -15,18 +16,18 @@ class favourts extends StatefulWidget {
 }
 
 class _favourtsState extends State<favourts> {
-  late Box<Favorite> wishBox = Hive.box<Favorite>('wish');
+  //late Box<Favorite> wishBox = Hive.box<Favorite>('fav');
   // wishHelper whp = wishHelper();
 
   @override
   void initState() {
     super.initState();
-    _openBox();
+  getallfav();
   }
 
-  Future<void> _openBox() async {
-    wishBox = await Hive.openBox('wish');
-  }
+  // Future<void> _openBox() async {
+  //   wishBox = await Hive.openBox<Favorite>('fav');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -41,26 +42,26 @@ class _favourtsState extends State<favourts> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ValueListenableBuilder<Box<Favorite>>(
-              valueListenable: wishBox.listenable(),
-              builder: (context, wishBox, _) {
-                final values = wishBox.values.toList();
+            ValueListenableBuilder(
+              valueListenable: favoritelist,
+              builder: (context,List<Favorite>favoritelist,Widget?child ) {
+                final values = favoritelist;
                 if (values.isEmpty) {
                   return Column(
                     children: [
-                      Center(
-                        child: Image.asset('images/wishlist.gif'),
-                      ),
+                      // Center(
+                      //   child: Image.asset('images/wishlist.gif'),
+                      // ),
                     ],
                   );
                 } else {
                   return Expanded(
                     child: GridView.builder(
-                      itemCount: wishBox.length,
+                      itemCount: favoritelist.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: 2 / 3, crossAxisCount: 2),
                       itemBuilder: (context, index) {
-                        final vals = values[index];
+                        final vals = values.reversed.toList()[index];
                         return Stack(
                           children: [
                             Padding(
@@ -98,12 +99,12 @@ class _favourtsState extends State<favourts> {
                                       content: Text('Remove from wish list'),
                                       backgroundColor: Colors.red,
                                     ));
-                                    wishBox.deleteAt(index);
+                                    //favoritelist.deleteAt(index);
                                     setState(() {});
                                   },
                                   icon: Icon(Icons.favorite),
                                   iconSize: 35,
-                                  color: colorss,
+                                  //color: colorss,
                                 )),
                           ],
                         );

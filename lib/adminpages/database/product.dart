@@ -36,4 +36,6 @@ class Product extends HiveObject {
       required this.decripation, 
       
       });
+
+  get quantity => null;
 }
