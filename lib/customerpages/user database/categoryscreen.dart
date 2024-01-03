@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/controller/user.controller.dart';
 
@@ -68,6 +67,7 @@ class _ScreenCategoryState extends State<ScreenCategory> {
                               topLeft: Radius.circular(16),
                               topRight: Radius.circular(16),
                             ),
+                            // ignore: unnecessary_null_comparison
                             child: product.image != null
                                 ? Image.file(
                                     File(product.image),

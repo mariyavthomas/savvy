@@ -16,11 +16,19 @@ class Address extends HiveObject {
   String dis;
   @HiveField(5)
    int id;
+    @HiveField(6)
+   String number;
+    @HiveField(7)
+   String mail;
   Address(
       {required this.addname,
       required this.housename,
       required this.pincode,
       required this.post,
+      required this.number,
+      required this.mail,
       required this.dis,
-      required this.id});
+      required this.id
+      
+      });
 }

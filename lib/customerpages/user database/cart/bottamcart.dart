@@ -1,7 +1,6 @@
 
 import 'package:savvy/customerpages/addressdb/address.dart';
 import 'package:savvy/customerpages/buy.dart';
-import 'package:savvy/customerpages/pay.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -36,7 +35,7 @@ class CartPaymBottom extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '\₹${widget.totelPrice}',
+            '\₹${widget.totels}',
             style: const TextStyle(
               color: Colors.black,
               fontSize: 20,
@@ -66,7 +65,12 @@ class CartPaymBottom extends StatelessWidget {
                             image: data.image!,
                             productname: data.name,
                             price: num.parse(data.price),
-                            
+                            decripation: data.decripation,
+                            dis: address!.dis,
+                            housename: address!.housename,
+                            mail: address!.mail,
+                            mobile: address!.number,
+                            post: address!.post,
                             quantity: data.quantity,);
                         orderhistoryy.addOrderHistory(order);
                       }

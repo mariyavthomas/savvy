@@ -1,5 +1,6 @@
 // import 'dart:convert';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:savvy/controller/user.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,12 +9,11 @@ import 'package:savvy/customerpages/addressdb/address.dart';
 import 'package:savvy/customerpages/addressdb/addressfunction.dart';
 
 class AdressEditingPage extends StatefulWidget {
-  final Address ?address;
+  final Address? address;
   final int? id;
-  final int ?index;
+  final int? index;
 
-   AdressEditingPage(
-      {Key? key, this.address,  this.index,  this.id})
+  AdressEditingPage({Key? key, this.address, this.index, this.id})
       : super(key: key);
 
   @override
@@ -27,7 +27,12 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
   late TextEditingController _pincode;
   late TextEditingController _dis;
   late TextEditingController _post;
-
+  late TextEditingController _mail;
+  late TextEditingController _number;
+  bool isPhone(String input) =>
+      RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
+          .hasMatch(input);
+  bool isEmail(String input) => EmailValidator.validate(input);
   @override
   void initState() {
     super.initState();
@@ -36,6 +41,8 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
     _pincode = TextEditingController(text: widget.address?.pincode);
     _post = TextEditingController(text: widget.address?.post);
     _dis = TextEditingController(text: widget.address?.dis);
+    _mail = TextEditingController(text: widget.address?.mail);
+    _number = TextEditingController(text: widget.address?.number);
   }
 
   @override
@@ -55,7 +62,10 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: const Text('Edit your Address',style: TextStyle(color: Colors.black),),
+        title: const Text(
+          'Edit your Address',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -71,7 +81,13 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
                     controller: _addname,
                     decoration: const InputDecoration(
                       labelText: 'User Name',
-                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(
+                          Icons.person,
+                          color: Colors.grey,
+                        ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -85,7 +101,13 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
                     controller: _housename,
                     decoration: const InputDecoration(
                       labelText: 'Housename',
-                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(
+                          Icons.home,
+                          color: Colors.grey,
+                        ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -99,7 +121,13 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
                     controller: _pincode,
                     decoration: const InputDecoration(
                       labelText: 'Pincode',
-                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(
+                          Icons.pin,
+                          color: Colors.grey,
+                        ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
@@ -117,7 +145,13 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
                     controller: _post,
                     decoration: const InputDecoration(
                       labelText: 'Post',
-                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(
+                          Icons.local_post_office,
+                          color: Colors.grey,
+                        ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -131,13 +165,83 @@ class _AdressEditingPageState extends State<AdressEditingPage> {
                     controller: _dis,
                     decoration: const InputDecoration(
                       labelText: 'District',
-                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(
+                          Icons.location_city,
+                          color: Colors.grey,
+                        ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a District';
                       }
                       return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    controller: _number,
+                    decoration: InputDecoration(
+                        labelText: "Mobile number",
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          // fontWeight: FontWeight.w800
+                        ),
+                        hintText: "Enter your number",
+                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(
+                          Icons.mobile_friendly,
+                          color: Colors.grey,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)
+                        )),
+                    keyboardType: TextInputType.phone,
+                    validator: (value) {
+                      if (!isPhone(value!)) {
+                        return 'Please Enter Valid Number';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onSaved: (value) {
+                      _number.text = value!;
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    controller: _mail,
+                    decoration: InputDecoration(
+                        labelText: "Email",
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          //  fontWeight: FontWeight.w300
+                        ),
+                        hintText: "Enter Your Email",
+                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(
+                          Icons.mail,
+                          color: Colors.grey,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))
+                        )),
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (!isEmail(value!)) {
+                        return 'Please Enter Valid Email';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onSaved: (value) {
+                      _mail.text = value!;
                     },
                   ),
                   const SizedBox(height: 10),

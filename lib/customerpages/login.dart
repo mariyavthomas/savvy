@@ -226,9 +226,8 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void login(String email, String password, BuildContext context) async {
-    final usersBox =
-        await Hive.openBox<User>('users'); // Open the Hive box for users
+  void login(String email, String password,BuildContext context) async {
+    final usersBox = await Hive.openBox<User>('users'); // Open the Hive box for users
 
     User? user;
 

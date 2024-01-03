@@ -30,9 +30,7 @@ class _cartscreensState extends State<cartscreens> {
 
 // List<Cart> cartList = addcartlist.value;
 // List<int> place = addcartlist.ma((Cart) => Cart.id).toList();
-  List<int?> place = addcartlist.value.isEmpty
-      ? []
-      : addcartlist.value.map((cart) => cart.id).toList();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +88,10 @@ class _cartscreensState extends State<cartscreens> {
                                 customecart(
                                   image: Cart.image,
                                   productname: Cart.name,
-                                  decripation: Cart.name,
+                                  decripation: Cart.decripation,
                                   price: Cart.price,
                                   quantity: Cart.quantity.toString(),
+
                                 ),
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -178,71 +177,71 @@ class _cartscreensState extends State<cartscreens> {
                                 //     title: Text('Delete'),
                                 //   ),
                                 // ),
-                                Container(
-                                  width: 190,
-                                  child: ListTile(
-                                    leading: Icon(Icons.delete),
-                                    onTap: () {
-                                      // Show a confirmation dialog before deleting
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text('Delete Confirmation'),
-                                            content: Text(
-                                                'Are you sure you want to delete this item?'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(); // Close the dialog
-                                                },
-                                                child: Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  // Delete the item and close the dialog
-                                                //  deleteCart(Cart.id!);
-                                                  //Navigator.of(context).pop();
-                                                  setState(() {
-                                                    deleteCart(Cart.id!);
-                                                    Navigator.of(context).pop();
-                                                  });
-                                                },
-                                                child: Text('Delete'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                    title: Text('Delete'),
+                                Center(
+                                  child: Container(
+                                    width: 190,
+                                    child: ListTile(
+                                      leading: Icon(Icons.delete),
+                                      onTap: () {
+                                        // Show a confirmation dialog before deleting
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Delete Confirmation'),
+                                              content: Text(
+                                                  'Are you sure you want to delete this item?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog
+                                                  },
+                                                  child: Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    // Delete the item and close the dialog
+                                                  //  deleteCart(Cart.id!);
+                                                    //Navigator.of(context).pop();
+                                                    setState(() {
+                                                      deleteCart(Cart.id!);
+                                                      Navigator.of(context).pop();
+                                                    });
+                                                  },
+                                                  child: Text('Delete'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      title: Text('Delete'),
+                                    ),
                                   ),
                                 ),
 
-                                VerticalDivider(
-                                  thickness: 10,
-                                ),
-                                Container(
-                                  width: 130,
-                                  child: ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Screenpdetails(
-                                                    productname: Cart.name,
-                                                    price: Cart.price,
-                                                    decripation: Cart.name,
-                                                    imagePath: Cart.image!,
-                                                  )));
-                                    },
-                                    leading: Icon(Icons.shop_2),
-                                    title: Text('Buy Now',
-                                    overflow: TextOverflow.clip,),
-                                  ),
-                                ),
+                                
+                                // Container(
+                                //   width: 130,
+                                //   child: ListTile(
+                                //     onTap: () {
+                                //       Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute(
+                                //               builder: (context) =>
+                                //                   Screenpdetails(
+                                //                     productname: Cart.name,
+                                //                     price: Cart.price,
+                                //                     decripation: Cart.name,
+                                //                     imagePath: Cart.image!,
+                                //                   )));
+                                //     },
+                                //     leading: Icon(Icons.shop_2),
+                                //     title: Text('Buy Now',
+                                //     overflow: TextOverflow.clip,),
+                                //   ),
+                                // ),
                               ],
                             )
                           ],
@@ -282,8 +281,20 @@ class _cartscreensState extends State<cartscreens> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (total==0) {
+                      
+                      if (totals >0 && addcartlist.value.isNotEmpty ) {
+                       
                         // Show an alert if the cart is empty
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Screenaddress(
+                                  address:
+                                      'address',
+                                      totals: totals.toInt()), // Change to your order completion page
+                            ),
+                          );
+                      } else {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -301,19 +312,12 @@ class _cartscreensState extends State<cartscreens> {
                             );
                           },
                         );
-                      } else {
+                        
                         // Navigate to the next page to complete the order
 
                        
                           
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Screenaddress(
-                                  address:
-                                      'address'), // Change to your order completion page
-                            ),
-                          );
+                          
                         
                       }
                     },
@@ -337,12 +341,13 @@ class _cartscreensState extends State<cartscreens> {
   }
 
   Future<void> countLessing(
-      {quantityy, pricee, titlee, imagee, idd, cate}) async {
+      {quantityy, pricee, titlee, imagee, idd, cate, decripationn}) async {
     int id = idd ?? 0;
     double quantity = quantityy ?? 0;
     int price = pricee ?? 0;
     String title = titlee ?? "";
     String image = imagee;
+    String decripation= decripationn ??  "";
 
     if (quantity > 1) {
       quantity = quantity - 1;
@@ -354,19 +359,20 @@ class _cartscreensState extends State<cartscreens> {
         name: title,
         price: price.toString(),
         image: image,
+        decripation: decripation ,
       );
       await upgadecart(id, cart);
     }
   }
 
   Future<void> countAdding(
-      {quantityy, pricee, titlee, imagee, idd, cate}) async {
+      {quantityy, pricee, titlee, imagee, idd, cate,decripat}) async {
     int id = idd ?? 0;
     double quantity = quantityy ?? 0;
     int price = pricee ?? 0;
     String title = titlee ?? "";
     String image = imagee;
-
+    String decripation= decripat ?? "";  
     if (quantity < 9) {
       quantity = quantity + 1;
 
@@ -376,6 +382,7 @@ class _cartscreensState extends State<cartscreens> {
         name: title,
         price: price.toString(),
         image: image,
+        decripation: decripation
       );
       await upgadecart(id, cart);
     } else {

@@ -3,12 +3,16 @@ import 'package:hive/hive.dart';
 import 'package:savvy/customerpages/addaddress.dart';
 import 'package:savvy/customerpages/addressdb/address.dart';
 import 'package:savvy/customerpages/addressdb/addressfunction.dart';
-import 'package:savvy/customerpages/addressedit.dart';
 import 'package:savvy/customerpages/buy.dart';
 import 'package:savvy/customerpages/user%20database/cart/cartscreen.dart';
 
+import 'addressedit.dart';
+
+
 class Screenaddress extends StatefulWidget {
-  const Screenaddress({Key? key, required this.address}) : super(key: key);
+  //final int index=0;
+  final int totals;
+  const Screenaddress({Key? key, required this.address,required this.totals}) : super(key: key);
 
   final String address;
 
@@ -19,6 +23,7 @@ class Screenaddress extends StatefulWidget {
 class _ScreenaddressState extends State<Screenaddress> {
   AddressHel add = AddressHel();
   late Box<Address> addressbox = Hive.box('address');
+  int?selectaddress;
 
   @override
   void initState() {
@@ -64,77 +69,133 @@ class _ScreenaddressState extends State<Screenaddress> {
             ),
             Expanded(
               child: ValueListenableBuilder(
-                valueListenable:
-                    addresslist, // Make sure addresslist is defined
-                builder: (context, List<Address> addresslist, Widget? child) {
-                  return ListView.builder(
-                    itemCount: addresslist.length,
-                    itemBuilder: (context, index) {
-                      final address = addresslist[index];
-
-                      return Stack(
-                        children:[ 
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                            width: double.infinity,
-                           // height: 150,
-                            decoration: BoxDecoration(border: Border.all()),
-                            child: Column(
-                             // crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("${address.addname}"),
-                                Text("${address.housename}"),
-                                Text("${address.post}"),
-                                Text("${address.dis}"),
-                                Text("${address.pincode}"),
-                                Row(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: IconButton(
-                                      onPressed: () {
-                                        print(address.id);
-                                        add.delete1(address.id);
-                                        setState(() {
-                                          addresslist.removeAt(index);
-                                        });
-                                      },
-                                      icon: const Icon(Icons.delete),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 200),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AdressEditingPage(address: address,id: address.id,index: index,)));
-                                        }, icon: Icon(Icons.edit)),
-                                  )
-                                ])
-                              ],
-                            ),
-                            
-                                                  ),
+            valueListenable: addresslist,
+            builder: (context, List<Address> address, Widget? child) {
+              return ListView.separated(
+                itemCount: address.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final addressadd = address.reversed.toList()[index];
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          // Handle address tap
+                          _handleRadioValueChange(index, addressadd);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 560),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: ElevatedButton(
-                             style: ButtonStyle( fixedSize: MaterialStatePropertyAll(Size(450,45))), 
-                              onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPaymentScreen(address: address,index: index,totelPrice: totals)));
-                              }, child: Text('Payment'))),
-                        )
-          ]);
-                    
-                    },
+                          height: 150,
+                          width: double.infinity,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Radio(
+                                value: index,
+                                groupValue: selectaddress,
+                                onChanged: (int? value) {
+                                  // Handle Radio button change
+
+                                  _handleRadioValueChange(value, addressadd);
+                                },
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    addressadd.addname,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  Text(
+                                    addressadd.housename,
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Text(addressadd.dis),
+                                  Text(addressadd.pincode),
+                                   Text(addressadd.post),
+                                    Text(addressadd.mail),
+                                    Text(addressadd.number),
+
+                                ],
+                              ),
+                              SizedBox(
+                                width: 30,
+                              ),
+                              Column(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (ctx) => AdressEditingPage(
+                                                    
+                                                    )));
+                                      },
+                                      icon: Icon(Icons.edit)),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                width: 20,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
                   );
                 },
-              ),
-            ),
-          ],
+                separatorBuilder: (BuildContext context, int index) {
+                  // You can customize the appearance of the separator here
+                  return Divider(
+                    height: 1,
+                    color: Colors.grey,
+                  );
+                },
+              );
+            },
+          ),
         ),
-      ),
-    );
+    ]  ),
+     ) );
+  }
+
+  // Update the Radio onChanged callback
+  void _handleRadioValueChange(int? value, Address selectedAddress) {
+    setState(() {
+      selectaddress = value;
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (buy) => CartPaymentScreen(
+                    address: selectedAddress,
+                    totels: totals,
+                    
+                  
+                  )));
+    });
   }
 }

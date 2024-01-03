@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:savvy/customerpages/gromming/booking.dart';
-import 'package:savvy/list/grooming.dart';
+
 
 // ignore: must_be_immutable
 class ScreenGrommingdetails extends StatefulWidget {
@@ -23,17 +23,7 @@ class ScreenGrommingdetails extends StatefulWidget {
 }
 
 class _ScreenGrommingdetailsState extends State<ScreenGrommingdetails> {
-  // int quantity =1;
-  // void incrementquantity(){
-  //   setState(() {
-  //     quantity++;
-  //   });
-  // }
-  // void decrementQuantity(){
-  //   setState(() {
-  //     quantity--;
-  //   });
-  // }
+  
 
   @override
   Widget build(BuildContext context) {

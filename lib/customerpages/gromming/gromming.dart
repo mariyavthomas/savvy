@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:savvy/adminpages/database/product.dart';
+
 import 'package:savvy/adminpages/groomingsection/grommingdb/gromming.dart';
 import 'package:savvy/adminpages/groomingsection/grommingdb/grommingfun.dart';
-import 'package:savvy/controller/user.controller.dart';
+import 'package:savvy/customerpages/gromming/gromiingsearch.dart';
+
 import 'package:savvy/customerpages/gromming/grommingdetails.dart';
 import 'dart:io';
 
-import 'package:savvy/customerpages/productdetails.dart';
-import 'package:savvy/customerpages/user%20database/cart/cart.dart';
-import 'package:savvy/customerpages/user%20database/cart/cartfunction.dart';
-import 'package:savvy/customerpages/user%20database/commern/searchscreen.dart';
+
 
 class ScreenGromming extends StatefulWidget {
   const ScreenGromming({Key? key}) : super(key: key);
@@ -24,9 +22,6 @@ class _ScreenGrommingState extends State<ScreenGromming> {
   TextEditingController searchController = TextEditingController();
   // ignore: unused_field
   late Box<Gromming> _grommingbox = Hive.box('gromming');
-  
-  
-
 
   @override
   void initState() {
@@ -50,14 +45,19 @@ class _ScreenGrommingState extends State<ScreenGromming> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => searchscreen()));
-              },
-              icon: Icon(
-                Icons.search,
-                color: Colors.black,
-              ))
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => searchgromm(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+          ),
         ],
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
@@ -67,16 +67,13 @@ class _ScreenGrommingState extends State<ScreenGromming> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          
-          // Horizontal Scrolling Listq
-          
-         SizedBox(
-          height: 10,
-         ),
-          Expanded(
-            child: ValueListenableBuilder(
+      body: Container(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            ValueListenableBuilder(
               valueListenable: gromminglist,
               builder: (context, List<Gromming> gromminglist, Widget? child) {
                 return Expanded(
@@ -91,7 +88,7 @@ class _ScreenGrommingState extends State<ScreenGromming> {
                     itemBuilder: (context, index) {
                       final gromming = gromminglist[index];
                       final imagePath = gromming.image;
-
+                  
                       return GestureDetector(
                         onTap: () {
                           showdata1(
@@ -99,7 +96,8 @@ class _ScreenGrommingState extends State<ScreenGromming> {
                               gromming.image,
                               gromming.price,
                               gromming.functionality,
-                              gromming.time.toString());
+                              gromming.time.toString()
+                              );
                         },
                         child: Container(
                           //decoration: BoxDecoration(color: Colors.blue,border: Border.all(color: Colors.black)),
@@ -153,8 +151,8 @@ class _ScreenGrommingState extends State<ScreenGromming> {
                 );
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/controller/user.controller.dart';
-import 'package:savvy/customerpages/user%20database/cart/cartscreen.dart';
 
 
 class Paymentproduct extends StatefulWidget {
@@ -40,6 +39,7 @@ class _PaymentproductState extends State<Paymentproduct> {
         valueListenable: productlist,
          builder:(context,List<Product>productlist,Widget?child){
 
+          // ignore: unused_local_variable
           final product = productlist;
          
        

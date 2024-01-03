@@ -17,14 +17,14 @@ class Cart extends HiveObject {
   int? id;
   @HiveField(4)
   double quantity;
-  // @HiveField(5)
-  // String decripation;
+  @HiveField(5)
+  String decripation;
 
   Cart(
       {required this.name,
       required this.image,
       required this.price,
-      // required this.decripation,
+       required this.decripation,
      required this.id,
      required this.quantity
       });

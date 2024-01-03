@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:savvy/customerpages/gromming/mybooking.dart';
 
 import 'package:savvy/customerpages/login.dart';
-import 'package:savvy/customerpages/oderdetails.dart';
-import 'package:savvy/customerpages/profile.dart';
+
 import 'package:savvy/customerpages/saveaddress.dart';
-import 'package:savvy/customerpages/user%20database/editingprofile.dart';
+import 'package:savvy/customerpages/user%20database/cart/cartscreen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'user database/cart/oderinfo.dart';
 
 class Screensettings extends StatefulWidget {
   const Screensettings({super.key});
@@ -36,10 +37,10 @@ class _ScreensettingsState extends State<Screensettings> {
         children: [
           InkWell(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) =>  orderinfo(address:Address,color:'',imgs: '',mail: '',pin: '', name: '',qnty: '',rate: '',usern: '',)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  orderhistory()));
             },
             child: ListTile(
               leading: const Icon(Icons.shop_2_outlined),
@@ -77,6 +78,7 @@ class _ScreensettingsState extends State<Screensettings> {
                   MaterialPageRoute(
                       builder: (context) => Screenaddress(
                             address: 'address',
+                            totals:totals.toInt(),
                           )));
             },
             child: ListTile(
@@ -89,6 +91,7 @@ class _ScreensettingsState extends State<Screensettings> {
                         MaterialPageRoute(
                             builder: (context) => Screenaddress(
                                   address: 'address',
+                                  totals: totals.toInt(),
                                 )));
                   },
                   icon: const Icon(Icons.keyboard_arrow_right)),

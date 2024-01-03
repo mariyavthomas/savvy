@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_use_of_protected_member
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,9 @@ Future<void> savecart(Cart value) async {
   final id = await save.add(value);
   final data = save.get(id);
   await save.put(id,
-      Cart(name: data!.name, image: data.image, price: data.price, id: id, quantity:data.quantity));
+      Cart(name: data!.name, image: data.image, price: data.price, id: id, quantity:data.quantity,
+      decripation: data.decripation
+      ));
   getallcart();
 }
 
@@ -20,7 +22,6 @@ Future<void> getallcart() async {
   final save = await Hive.openBox<Cart>('cart');
   addcartlist.value.clear();
   addcartlist.value.addAll(save.values);
-  // ignore: invalid_use_of_visible_for_testing_member
   addcartlist.notifyListeners();
 }
 
@@ -45,7 +46,6 @@ Future<void>upgadecart(id,Cart value)async{
     int index =addcartlist.value.indexWhere((element) => element.id==id);
     if(index!=-1){
       addcartlist.value[index]=value;
-      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
       addcartlist.notifyListeners();
     }
   }

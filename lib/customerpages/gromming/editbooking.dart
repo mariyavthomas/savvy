@@ -28,7 +28,7 @@ class _EditingbookingState extends State<Editingbooking> {
   late TextEditingController _beered;
   // Updated to use File for selected image
   late TextEditingController _date;
-  late TextEditingController _gender;
+  // late TextEditingController _gender;
   late TextEditingController _number;
   late TextEditingController _age;
   late TextEditingController _aggressive;

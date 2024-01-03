@@ -4,6 +4,8 @@ import 'package:savvy/adminpages/category/categoryfun.dart';
 import 'package:savvy/adminpages/category/categoty.dart';
 import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/controller/user.controller.dart';
+import 'package:savvy/customerpages/favorite/addwishlist.dart';
+import 'package:savvy/customerpages/favorite/favoritefunctions.dart';
 import 'dart:io';
 
 import 'package:savvy/customerpages/productdetails.dart';
@@ -19,35 +21,20 @@ class Screenpetfood extends StatefulWidget {
 }
 
 class _ScreenpetfoodState extends State<Screenpetfood> {
- // Pdhelper pdh = Pdhelper();
+  // Pdhelper pdh = Pdhelper();
   TextEditingController searchController = TextEditingController();
   // ignore: unused_field
-  late Box<Product> _productBox = Hive.box('product');
-  CategoryHelper cate=CategoryHelper();
- // late Box<Category1>_categorybox=Hive.box(dbcate);
+  late Box<Product> _productBox = Hive.box<Product>('product');
+  CategoryHelper cate = CategoryHelper();
+  // late Box<Category1>_categorybox=Hive.box(dbcate);
   int catenum = 0;
-  List<String> image = [
-    'assets/image/food10.webp',
-    'assets/image/food2.webp',
-    'assets/image/food3.webp',
-    'assets/image/food4.webp',
-    'assets/image/food5.webp',
-    'assets/image/food6.webp',
-  ];
-  List<String> categorynames = [
-    'Dry Food',
-    'wet Food',
-    'Grain Free Food',
-    'Pappy Food',
-    'Adult Food',
-    'Vegetarian Food'
-  ];
 
   @override
   void initState() {
     super.initState();
     getall1();
     cate.getallcategory();
+    getallfav();
   }
 
   @override
@@ -83,49 +70,25 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
-              child: Text(
-                'Category',
-                style: TextStyle(fontWeight: FontWeight.bold),
+      body: Container(
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                child: Text(
+                  'Category',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-          ),
-
-          // // Horizontal Scrolling Listq
-          // SingleChildScrollView(
-            
-          //   scrollDirection: Axis.horizontal,
-          //   child: Row(
-          //     children: List.generate(5, (index) {
-          //       return Column(
-          //         children: [
-          //           Container(
-          //             height: 60,
-          //             width: 90,
-          //             child: InkWell(
-          //               onTap: () {},
-          //               child: CircleAvatar(
-          //                 backgroundImage: AssetImage(),
-          //                 radius: 30, // Adjust the radius as needed
-          //               ),
-          //             ),
-          //           ),
-          //           Text(categorynames[index]),
-          //         ],
-          //       );
-          //     }),
-          //   ),
-          // ),
-          SizedBox(
+            SizedBox(
               height: 100,
               child: ValueListenableBuilder(
                   valueListenable: categorylist,
-                  builder: (context, List<Category1> categorylist2, Widget? child) {
+                  builder:
+                      (context, List<Category1> categorylist2, Widget? child) {
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -142,7 +105,8 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => ScreenCategory(
-                                              category1: addtocat.categoryname)));
+                                              category1:
+                                                  addtocat.categoryname)));
                                 },
                                 child: CircleAvatar(
                                     radius: 32,
@@ -164,22 +128,11 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                     );
                   }),
             ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
-              child: Text(
-                '',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: productlist,
-              builder: (context, List<Product> productlist, Widget? child) {
-                return Expanded(
-                  child: GridView.builder(
+            Expanded(
+              child: ValueListenableBuilder(
+                valueListenable: productlist,
+                builder: (context, List<Product> productlist, Widget? child) {
+                  return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
@@ -201,11 +154,11 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                               product.category);
                         },
                         child: Container(
-                          //decoration: BoxDecoration(color: Colors.blue,border: Border.all(color: Colors.black)),
+                          // height: 300,
+                          // decoration: BoxDecoration(
+                          //     color: Colors.blue,
+                          //     border: Border.all(color: Colors.black)),
                           child: Column(children: [
-                            SizedBox(
-                              height: 5,
-                            ),
                             ClipRRect(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10.0),
@@ -215,7 +168,7 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                                   ? Image.file(
                                       File(imagePath),
                                       height:
-                                          170, // Adjust the height as needed
+                                          150, // Adjust the height as needed
                                       width: double.infinity,
                                       fit: BoxFit.cover,
                                     )
@@ -232,28 +185,45 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Center(
-                              child: Text(
-                                " ₹${product.price}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Color.fromARGB(255, 211, 84, 6),
-                                    fontWeight: FontWeight.w500),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 60),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    " ₹${product.price}",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color:
+                                            Color.fromARGB(255, 211, 84, 6),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  IconButton(
+                                    icon: getIcon(product),
+                                    onPressed: () {
+                                      setState(() {
+                                        addfav_button(
+                                          product,
+                                          context,
+                                        );
+                                      });
+                                    },
+                                  ),
+                                ],
                               ),
-                            ),
+                            )
                           ]),
                         ),
                       );
                     },
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

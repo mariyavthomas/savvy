@@ -49,7 +49,11 @@ class customecart extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               
+                     Text(productname),
+                     SizedBox(
+                      height: 10,
+                     ),
+                     Text(price),
                 SizedBox(
                   height: 30,
                 ),

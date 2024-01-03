@@ -22,15 +22,21 @@ class OrderhistoryModelAdapter extends TypeAdapter<OrderhistoryModel> {
       image: fields[1] as String,
       productname: fields[2] as String,
       price: fields[3] as num,
+      decripation: fields[7] as String,
       id: fields[0] as int?,
       quantity: fields[4] as double?,
+      dis: fields[10] as String,
+      housename: fields[8] as String,
+      mail: fields[12] as String,
+      mobile: fields[11] as String,
+      post: fields[9] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, OrderhistoryModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +50,19 @@ class OrderhistoryModelAdapter extends TypeAdapter<OrderhistoryModel> {
       ..writeByte(5)
       ..write(obj.pincode)
       ..writeByte(6)
-      ..write(obj.usrname);
+      ..write(obj.usrname)
+      ..writeByte(7)
+      ..write(obj.decripation)
+      ..writeByte(8)
+      ..write(obj.housename)
+      ..writeByte(9)
+      ..write(obj.post)
+      ..writeByte(10)
+      ..write(obj.dis)
+      ..writeByte(11)
+      ..write(obj.mobile)
+      ..writeByte(12)
+      ..write(obj.mail);
   }
 
   @override

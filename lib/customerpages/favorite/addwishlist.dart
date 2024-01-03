@@ -1,18 +1,24 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
 
+// ignore: unnecessary_import
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/customerpages/favorite/favorite.dart';
+import 'package:savvy/customerpages/favorite/favoritefunctions.dart';
 
-import 'favoritefunctions.dart';
 
 
-void addfav_button(Product addproducts, BuildContext context) async {
+Future<void> addfav_button(
+  Product product,
+  BuildContext context,
+) async {
   await Hive.openBox<Favorite>('fav');
   final addfavBox = Hive.box<Favorite>('fav');
 
   final favexists =
-      addfavBox.values.any((user) => user.productname == addproducts.productname);
+      addfavBox.values.any((user) => user.productname == product.productname);
   if (favexists) {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Product Alredy Exist!'),
@@ -21,11 +27,11 @@ void addfav_button(Product addproducts, BuildContext context) async {
     ));
   } else {
     final fav = Favorite(
-        productname: addproducts.productname,
-        price: addproducts.price,
-        decripation: addproducts.decripation,
-        id: -1,
-        image: addproducts.image);
+        productname: product.productname,
+        price: product.price,
+        decripation: product.decripation,
+        image: product.image,
+        id: -1);
     addfav(fav);
 
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -36,10 +42,54 @@ void addfav_button(Product addproducts, BuildContext context) async {
   }
 }
 
+void removefav(BuildContext context, int? id) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Remove Fav'),
+          content: Text('Do you want to remove'),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  deletefav(context, id);
+                },
+                child: Text('Yes')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No'))
+          ],
+        );
+      });
+}
+
 //delete wishlist
 
-void deletefav(int id) async {
+Future<void> deletefav(context, int? id) async {
   final remove = await Hive.openBox<Favorite>('fav');
   remove.delete(id);
   getallfav();
+
+  // Navigator.of(context)
+  //     .pop(MaterialPageRoute(builder: (context) => Favourite()));
+}
+
+Icon getIcon(Product product) {
+  final addfavBox = Hive.box<Favorite>('fav');
+  final favexists =
+      addfavBox.values.any((user) => user.productname == product.productname);
+
+  if (favexists) {
+    return Icon(
+      Icons.favorite,
+      color: Colors.red,
+    );
+  } else {
+    return Icon(
+      Icons.favorite_border,
+      color: Colors.black,
+    );
+  }
 }

@@ -11,6 +11,7 @@ import 'package:savvy/customerpages/gromming/viewofbookingadmin.dart';
 import 'package:savvy/customerpages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../customerpages/user database/cart/viewoforders.dart';
 import 'groomingsection/addgromming.dart';
 
 class HomeadimScreen extends StatefulWidget {
@@ -302,7 +303,7 @@ class _HomeadimScreenState extends State<HomeadimScreen> {
                                leading: Container(
                                    padding: const EdgeInsets.all(5),
                                    decoration: const BoxDecoration(
-                                       color: Color.fromARGB(255, 177, 3, 119),
+                                       color: Color.fromARGB(255, 7, 179, 199),
                                        borderRadius:
                                            BorderRadius.all(Radius.circular(5))),
                                    child: const Icon(
@@ -355,7 +356,7 @@ class _HomeadimScreenState extends State<HomeadimScreen> {
                                        borderRadius:
                                            BorderRadius.all(Radius.circular(5))),
                                    child: const Icon(
-                                     Icons.add,
+                                     Icons.bookmark,
                                      color: Colors.white,
                                      size: 25,
                                    )),
@@ -375,6 +376,55 @@ class _HomeadimScreenState extends State<HomeadimScreen> {
                                    alignment: Alignment.centerLeft,
                                    child: Text(
                                      "View of All Booking",
+                                     style: TextStyle(fontSize: 15),
+                                   )),
+                             ),
+                           ),
+                         ),
+                       ),
+                     ),
+                      Padding(
+                       padding: const EdgeInsets.all(8),
+                       child: GestureDetector(
+                        onTap: () {
+                        setState(() {
+                            Navigator.push(
+                                       context,
+                                       MaterialPageRoute(
+                                           builder: (context) => Viewoforders()));
+                        });
+                        },
+                         child: Card(
+                          color: const Color.fromARGB(255, 229, 206, 206),
+                           child: GridTile(
+                             header: ListTile(
+                               leading: Container(
+                                   padding: const EdgeInsets.all(5),
+                                   decoration: const BoxDecoration(
+                                       color: Color.fromARGB(255, 12, 28, 206),
+                                       borderRadius:
+                                           BorderRadius.all(Radius.circular(5))),
+                                   child: const Icon(
+                                     Icons.bookmark,
+                                     color: Colors.white,
+                                     size: 25,
+                                   )),
+                               trailing: IconButton(
+                                 icon: Icon(Icons.more_vert),
+                                 onPressed: () {
+                                   Navigator.push(
+                                       context,
+                                       MaterialPageRoute(
+                                           builder: (context) => Viewoforders()));
+                                 },
+                               ),
+                             ),
+                             child: Container(
+                               margin: const EdgeInsets.only(left: 8.0, top: 50),
+                               child: const Align(
+                                   alignment: Alignment.centerLeft,
+                                   child: Text(
+                                     "View of All Orders",
                                      style: TextStyle(fontSize: 15),
                                    )),
                              ),

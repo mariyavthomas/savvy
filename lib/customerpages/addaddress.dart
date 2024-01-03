@@ -1,6 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+
 import 'package:savvy/customerpages/addressdb/address.dart';
 
 import 'addressdb/addressfunction.dart';
@@ -16,13 +16,17 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
   AddressHel addr = AddressHel();
   bool isPinCode(String input) =>
       RegExp(r'^[1-9]\d{2}\s?\d{3}$').hasMatch(input);
-
+bool isPhone(String input) =>
+      RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
+          .hasMatch(input);
   bool isEmail(String input) => EmailValidator.validate(input);
   final TextEditingController addnameController = TextEditingController();
   final TextEditingController housenameController = TextEditingController();
   final TextEditingController pincodeController = TextEditingController();
   final TextEditingController postController = TextEditingController();
   final TextEditingController disController = TextEditingController();
+  final TextEditingController numbercontroller=TextEditingController();
+  final TextEditingController mailcontroller=TextEditingController();
   final formkey = GlobalKey<FormState>();
   @override
   void dispose() {
@@ -188,7 +192,7 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter password';
+                          return 'Please enter District';
                         }
                         return null;
                       },
@@ -214,6 +218,66 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
                     ),
                     SizedBox(
                       height: 20,
+                    ),
+                    TextFormField(
+                      controller: numbercontroller,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                          labelText: "Mobile number",
+                          labelStyle: TextStyle(
+                              color:Colors.grey,
+                             // fontWeight: FontWeight.w800
+                              ),
+                          hintText: "Enter your number",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          prefixIcon: Icon(
+                            Icons.mobile_friendly,
+                            color: Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (!isPhone(value!)) {
+                          return 'Please Enter Valid Number';
+                        } else {
+                          return null;
+                        }
+                      },
+                      onSaved: (value) {
+                        numbercontroller.text = value!;
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: mailcontroller,
+                      decoration: InputDecoration(
+                          labelText: "Email",
+                          labelStyle: TextStyle(
+                              color: Colors.grey,
+                            //  fontWeight: FontWeight.w300
+                              ),
+                          hintText: "Enter Your Email",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          prefixIcon: Icon(
+                            Icons.mail,
+                            color:Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        if (!isEmail(value!)) {
+                          return 'Please Enter Valid Email';
+                        } else {
+                          return null;
+                        }
+                      },
+                      onSaved: (value) {
+                        mailcontroller.text = value!;
+                      },
                     ),
                     ElevatedButton(
                         style: ButtonStyle(
@@ -246,13 +310,20 @@ class _ScreenaddaddressState extends State<Screenaddaddress> {
     final pincode = pincodeController.text;
     final post = postController.text;
     final dis = disController.text;
+    final number=numbercontroller.text;
+    final mail=mailcontroller.text;
     final details = Address(
+      
         addname: addname,
         housename: housename,
         pincode: pincode,
+        mail: mail,
+        number: number,
         post: post,
         dis: dis,
-        id: -1);
+        id: -1,
+        
+        );
     addr.save(details);
      ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

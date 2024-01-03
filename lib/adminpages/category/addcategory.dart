@@ -92,8 +92,8 @@ class _ScreenaddCategoryState extends State<ScreenaddCategory> {
                           
                           borderRadius: BorderRadius.circular(100),
                           child: Container(
-                           width: 200,
-                           height: 200,
+                           width: 150,
+                           height:150 ,
                             constraints: BoxConstraints.tightForFinite(),
                             decoration: BoxDecoration(
                               color: Colors.grey,
@@ -121,7 +121,7 @@ class _ScreenaddCategoryState extends State<ScreenaddCategory> {
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
                                               autovalidateMode: AutovalidateMode.onUserInteraction,
-
+        
                         controller: catenamenameController,
                        // autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: const InputDecoration(
@@ -176,7 +176,7 @@ class _ScreenaddCategoryState extends State<ScreenaddCategory> {
                       },
                       child: Text('Add Category'),
                       
-
+        
                     ),
                   ],
                 ),
@@ -194,21 +194,21 @@ class _ScreenaddCategoryState extends State<ScreenaddCategory> {
               itemBuilder: (context, index) {
                 final category = categorylist[index];
                 final imagePath = category.catimage;
-      
+            
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Slidable(
                     startActionPane:
                         ActionPane(
-  motion: const StretchMotion(),
-  children: [
-    SlidableAction(
-      backgroundColor: Color.fromARGB(255, 246, 99, 31),
-      label: 'Delete',
-      autoClose: true,
-      icon: Icons.delete,
-      
-      onPressed: (context) {
+        motion: const StretchMotion(),
+        children: [
+          SlidableAction(
+            backgroundColor: Color.fromARGB(255, 246, 99, 31),
+            label: 'Delete',
+            autoClose: true,
+            icon: Icons.delete,
+            
+            onPressed: (context) {
         
         showDialog(
           context: context,
@@ -238,15 +238,16 @@ class _ScreenaddCategoryState extends State<ScreenaddCategory> {
             );
           },
         );
-      },
-    ),
-  ],
-),
+            },
+          ),
+        ],
+        ),
                     endActionPane:
                         ActionPane(motion: const StretchMotion(), children: [
                       SlidableAction(
                           backgroundColor: Colors.green,
                           label: 'Edit',
+                          // ignore: deprecated_member_use
                           icon: FontAwesomeIcons.edit,
                           autoClose: true,
                           onPressed: (context) {
@@ -309,7 +310,7 @@ class _ScreenaddCategoryState extends State<ScreenaddCategory> {
             )
           ],
         ),
-     ),
+         ),
 
 
     

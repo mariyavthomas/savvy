@@ -3,18 +3,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:savvy/adminpages/database/product.dart';
+
 import 'package:savvy/adminpages/groomingsection/grommingdb/gromming.dart';
 import 'package:savvy/adminpages/groomingsection/grommingdb/grommingfun.dart';
-import 'package:savvy/controller/user.controller.dart';
 import 'package:savvy/customerpages/gromming/grommingdetails.dart';
-import 'package:savvy/customerpages/productdetails.dart';
+
+
+
 
 // ignore: must_be_immutable
 class searchgromm extends StatefulWidget {
   searchgromm({Key? key}) : super(key: key);
 
-  Color colorss = Colors.white;
+  //Color colorss = Colors.white;
 
   @override
   State<searchgromm> createState() => _searchgrommState();
@@ -26,13 +27,13 @@ class _searchgrommState extends State<searchgromm> {
   late Box<Gromming> _grommingBox = Hive.box(dbgroom);
   Color colorss = Colors.white;
   TextEditingController searchController = TextEditingController();
-  
+  GroHelper gromm=GroHelper();
   
 
   @override
   void initState() {
     super.initState();
-   getall1();
+     gromm.getall2();
   }
 
   @override
@@ -101,11 +102,11 @@ class _searchgrommState extends State<searchgromm> {
                                 child: InkWell(
                                     onTap: () {
                                       showDatas(
-                                        gromming.grommingname,
-                                        gromming.image,
-                                        gromming.functionality,
-                                        gromming.price,
-                                        gromming.functionality
+                                         gromming.grommingname,
+                              gromming.image,
+                              gromming.price,
+                              gromming.functionality,
+                              gromming.time.toString()
                                        
                                       );
                                     },
@@ -168,16 +169,16 @@ class _searchgrommState extends State<searchgromm> {
     );
   }
 
-  void showDatas(String name,  String discrp, String price,String image,
-      String colorss) {
+  void showDatas(String name,  String imagePath, String price,String discrp,
+     String category ) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ScreenGrommingdetails(
-         functionality: discrp,
-        imagePath: image,
          grommingname: name,
-         price: price,
+          imagePath: imagePath,
+          price: price,
+          functionality: discrp,
         ),
       ),
     );

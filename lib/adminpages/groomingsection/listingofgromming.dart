@@ -96,6 +96,7 @@ class _GromminglistState extends State<Gromminglist> {
                     SlidableAction(
                         backgroundColor: Colors.green,
                         label: 'Edit',
+                        // ignore: deprecated_member_use
                         icon: FontAwesomeIcons.edit,
                         autoClose: true,
                         onPressed: (context) {

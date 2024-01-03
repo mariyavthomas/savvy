@@ -28,6 +28,7 @@ import 'package:savvy/customerpages/user%20database/logindatabase.dart';
 
 import 'customerpages/favorite/favorite.dart';
 import 'customerpages/user database/cart/cart.dart';
+import 'customerpages/user database/cart/order.dart';
 
 // ignore: constant_identifier_names
 const Save_key = 'userlogin';
@@ -43,6 +44,7 @@ void main() async {
  Hive.registerAdapter(CartAdapter());
  Hive.registerAdapter(Category1Adapter());
  Hive.registerAdapter(BookgromAdapter());
+ Hive.registerAdapter(OrderhistoryModelAdapter());
   runApp( MaterialApp(
     
     home: ScreenSpalsh(),

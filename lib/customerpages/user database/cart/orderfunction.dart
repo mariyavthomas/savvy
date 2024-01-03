@@ -15,14 +15,20 @@ class OrderHistory extends ChangeNotifier {
       id,
       OrderhistoryModel(
           
-        //  number: orderhistory?.number,
+        
           image: orderhistory!.image,
           pincode: orderhistory.pincode,
           usrname: orderhistory.usrname,
           productname: orderhistory.productname,
           price: orderhistory.price,
-        //  category: orderhistory.category,
-          quantity: orderhistory.quantity
+          decripation: orderhistory.decripation,
+           dis: orderhistory.dis,
+           housename: orderhistory.housename,
+           mail: orderhistory.mail,
+           mobile: orderhistory.mobile,
+           post: orderhistory.post,
+          quantity: orderhistory.quantity,
+          //id: -1
           ),
     );
     orderhistoryNotify.value.add(orderhistory);

@@ -21,6 +21,8 @@ class AddressAdapter extends TypeAdapter<Address> {
       housename: fields[1] as String,
       pincode: fields[2] as String,
       post: fields[3] as String,
+      number: fields[6] as String,
+      mail: fields[7] as String,
       dis: fields[4] as String,
       id: fields[5] as int,
     );
@@ -29,7 +31,7 @@ class AddressAdapter extends TypeAdapter<Address> {
   @override
   void write(BinaryWriter writer, Address obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.addname)
       ..writeByte(1)
@@ -41,7 +43,11 @@ class AddressAdapter extends TypeAdapter<Address> {
       ..writeByte(4)
       ..write(obj.dis)
       ..writeByte(5)
-      ..write(obj.id);
+      ..write(obj.id)
+      ..writeByte(6)
+      ..write(obj.number)
+      ..writeByte(7)
+      ..write(obj.mail);
   }
 
   @override

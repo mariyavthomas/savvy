@@ -1,16 +1,16 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:savvy/adminpages/database/product.dart';
+
 import 'package:savvy/customerpages/aboutblep.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:savvy/customerpages/feeding.dart';
-import 'package:savvy/customerpages/gromming/gromming.dart';
-import 'package:savvy/customerpages/gromming/grommingsection.dart';
+
 
 import 'package:savvy/customerpages/petfood.dart';
 import 'package:savvy/customerpages/why.dart';
 
 import 'favorite/favoratescreen.dart';
+import 'gromming/gromming.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -39,7 +39,7 @@ class _ScreenHomeState extends State<ScreenHome> {
           backgroundColor: Color.fromARGB(255, 237, 234, 234),
           actions: [
             IconButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>favourts()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Favourite()));
             }, icon: const Icon(Icons.favorite_border))
           ],
         ),
@@ -250,7 +250,7 @@ class _ScreenHomeState extends State<ScreenHome> {
               ),
               InkWell(
                 onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Screengrooming()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const ScreenGromming()));
               },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

@@ -20,8 +20,11 @@ class AddressHel {
             housename: data.housename,
             pincode: data.pincode,
             post: data.post,
+            mail: data.mail,
+            number: data.number,
             dis: data.dis,
-            id: id));
+            id: id
+            ));
     getalll();
   }
 
