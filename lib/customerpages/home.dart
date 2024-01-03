@@ -151,25 +151,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                             }),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 200),
-                    //   child: Text(
-                    //     'Human-Grade Pet Food',
-                    //     style: TextStyle(
-                    //         shadows: [
-                    //           Shadow(
-                    //             color: Color.fromARGB(255, 22, 22, 22), // Choose the color of the shadow
-                    //             blurRadius:
-                    //                 25.0, // Adjust the blur radius for the shadow effect
-                    //             offset: Offset(2.0,
-                    //                 2.0), // Set the horizontal and vertical offset for the shadow
-                    //           ),
-                    //         ],
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: 30,
-                    //         color: Color.fromARGB(255, 239, 238, 235)),
-                    //   ),
-                    // ),
+                   
                     
                  Row(
   mainAxisSize: MainAxisSize.min,
@@ -213,7 +195,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     width: 500,
-                    height: 140,
+                    height: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/image/food.jpeg"),
@@ -246,7 +228,7 @@ class _ScreenHomeState extends State<ScreenHome> {
               ),
              
               SizedBox(
-                height: 50,
+                height: 20,
               ),
               InkWell(
                 onTap: () {
@@ -256,7 +238,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     width: 500,
-                    height: 140,
+                    height: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/image/gromming.jpg"),

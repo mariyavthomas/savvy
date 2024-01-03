@@ -36,7 +36,7 @@ class AddressHel {
     addresslist.notifyListeners();
   }
 
-  Future<void> delete1(int id) async {
+  Future<void> delete1(context, int ?id) async {
     final remove = await Hive.openBox<Address>(dbadress);
     remove.delete(id);
     getalll();

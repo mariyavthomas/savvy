@@ -80,110 +80,114 @@ class _orderhistoryState extends State<orderhistory> {
                                             
                                           )));
                             },
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 88,
-                                        child: AspectRatio(
-                                          aspectRatio: 0.88,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10, top: 10),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(13),
-                                              child: Image(
-                                                fit: BoxFit.fill,
-                                                image:
-                                                    FileImage(File(data.image)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 12,bottom: 8,right: 12,top: 8),
+                              child: Card(
+                                
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 88,
+                                          child: AspectRatio(
+                                            aspectRatio: 0.88,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10, top: 10),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(13),
+                                                child: Image(
+                                                  fit: BoxFit.fill,
+                                                  image:
+                                                      FileImage(File(data.image)),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 20),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 8, bottom: 1),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const SizedBox(height: 15),
-                                            Text(
-                                              data.productname,
-                                            ),
-                                           
-                                            Text(
-                                              'Quandity :${data.quantity.toString()}',
-                                              style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 65, 65, 65),
-                                                fontSize: 16,
+                                        const SizedBox(width: 20),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8, bottom: 1),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const SizedBox(height: 15),
+                                              Text(
+                                                data.productname,
                                               ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'Total Price: ₹${totals(data.quantity!, data.price)}',
-                                                  style: const TextStyle(
-                                                    // fontWeight: FontWeight.w500,
-                                                    // color: Colors.green,
-                                                    fontSize: 16,
-                                                  ),
+                                             
+                                              Text(
+                                                'Quandity :${data.quantity.toString()}',
+                                                style: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 65, 65, 65),
+                                                  fontSize: 16,
                                                 ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Divider(),
-                                  ListTile(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                              'Order Cancelation',
-                                            ),
-                                            content: Text(
-                                                'You Want cancel this product'),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      cartorderlist
-                                                          .removeAt(index);
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text('Yes')),
-                                              TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text('No'))
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Total Price: ₹${totals(data.quantity!, data.price)}',
+                                                    style: const TextStyle(
+                                                      // fontWeight: FontWeight.w500,
+                                                      // color: Colors.green,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
                                             ],
-                                          );
-                                        },
-                                      );
-                                      setState(() {});
-                                    },
-                                    leading: Icon(Icons.cancel),
-                                    title: Text(
-                                      'Cancelation',
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
+                                    Divider(),
+                                    ListTile(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                'Order Cancelation',
+                                              ),
+                                              content: Text(
+                                                  'You Want cancel this product'),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        cartorderlist
+                                                            .removeAt(index);
+                                                      });
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text('Yes')),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text('No'))
+                                              ],
+                                            );
+                                          },
+                                        );
+                                        setState(() {});
+                                      },
+                                      leading: Icon(Icons.cancel),
+                                      title: Text(
+                                        'Cancelation',
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );

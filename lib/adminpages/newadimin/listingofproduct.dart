@@ -122,47 +122,50 @@ class _ProductListingPageState extends State<ProductListingPage> {
                             );
                           })
                     ]),
-                    child: Card(
-                      child: Container(
-                        width: double.infinity,
-                        height: 100,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 0,
-                              top: 0,
-                              child: Container(
-                                width: 149,
-                                height: 100,
-                                // ignore: unnecessary_null_comparison
-                                child: imagePath != null
-                                    ? Image.file(File(
-                                        imagePath)) // Display image from file path
-                                    : Placeholder(), // Placeholder if no image path is provided
-                                decoration: ShapeDecoration(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 12,bottom: 8,right: 12,top: 8),
+                      child: Card(
+                        child: Container(
+                          width: double.infinity,
+                          height: 100,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 0,
+                                top: 0,
+                                child: Container(
+                                  width: 149,
+                                  height: 100,
+                                  // ignore: unnecessary_null_comparison
+                                  child: imagePath != null
+                                      ? Image.file(File(
+                                          imagePath)) // Display image from file path
+                                      : Placeholder(), // Placeholder if no image path is provided
+                                  decoration: ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              left: 140,
-                              top: 40,
-                              child: Text("${product.productname}",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),)
-                            ),
-                           
-                            Positioned(
-                              left: 140,
-                              top: 70,
-                              child: Text("₹${product.price}",style: TextStyle(fontWeight: FontWeight.bold),)
-                            ),
-                             Positioned(
-                              left: 190,
-                              top: 70,
-                              child: Text("₹${product.category}",style: TextStyle(fontWeight: FontWeight.bold),)
-                            ),
-                          ],
+                              Positioned(
+                                left: 140,
+                                top: 40,
+                                child: Text("${product.productname}",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),)
+                              ),
+                             
+                              Positioned(
+                                left: 140,
+                                top: 70,
+                                child: Text("₹${product.price}",style: TextStyle(fontWeight: FontWeight.bold),)
+                              ),
+                               Positioned(
+                                left: 190,
+                                top: 70,
+                                child: Text("₹${product.category}",style: TextStyle(fontWeight: FontWeight.bold),)
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

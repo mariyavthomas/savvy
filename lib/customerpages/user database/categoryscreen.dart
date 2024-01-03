@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/controller/user.controller.dart';
 
+import '../productdetails.dart';
+
 class ScreenCategory extends StatefulWidget {
   final String category1;
 
@@ -54,7 +56,9 @@ class _ScreenCategoryState extends State<ScreenCategory> {
                 return Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Screenpdetails(decripation:product.decripation,imagePath: product.image,price: product.price,productname: product.productname,)));
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.0),

@@ -147,10 +147,12 @@ class _ScreenaddressState extends State<Screenaddress> {
                                     height: 15,
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                      add.delete1(context,addressadd.id);
+                                      },
                                       icon: Icon(
                                         Icons.delete,
-                                        color: Colors.red,
+                                       
                                       ))
                                 ],
                               ),

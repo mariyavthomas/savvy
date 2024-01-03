@@ -5,12 +5,12 @@ import 'package:savvy/customerpages/gromming/mybooking.dart';
 
 import 'package:savvy/customerpages/login.dart';
 
-import 'package:savvy/customerpages/saveaddress.dart';
-import 'package:savvy/customerpages/user%20database/cart/cartscreen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'user database/cart/oderinfo.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class Screensettings extends StatefulWidget {
   const Screensettings({super.key});
@@ -20,6 +20,14 @@ class Screensettings extends StatefulWidget {
 }
 
 class _ScreensettingsState extends State<Screensettings> {
+
+  final Uri _privacy = Uri.parse(
+      'https://www.freeprivacypolicy.com/live/416b7466-43df-4efb-ab42-72a7372504a0');
+  Future<void> privacy() async {
+    if (!await launchUrl(_privacy)) {
+      throw Exception('could not laounch $_privacy');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,54 +79,46 @@ class _ScreensettingsState extends State<Screensettings> {
                   icon: const Icon(Icons.keyboard_arrow_right)),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Screenaddress(
-                            address: 'address',
-                            totals:totals.toInt(),
-                          )));
-            },
-            child: ListTile(
-              leading: const Icon(Icons.save),
-              title: const Text('Save Address'),
-              trailing: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Screenaddress(
-                                  address: 'address',
-                                  totals: totals.toInt(),
-                                )));
-                  },
-                  icon: const Icon(Icons.keyboard_arrow_right)),
-            ),
-          ),
           // InkWell(
           //   onTap: () {
           //     Navigator.push(
           //         context,
           //         MaterialPageRoute(
-          //           builder: (context) => const EditProfileScreen(currentUser: widget.currentUser),
-          //         ));
+          //             builder: (context) => Screenaddress(
+          //                   address: 'address',
+          //                   totals:totals.toInt(),
+          //                 )));
           //   },
           //   child: ListTile(
-          //     leading: const Icon(Icons.edit),
-          //     title: const Text('Edit Profile'),
+          //     leading: const Icon(Icons.save),
+          //     title: const Text('Save Address'),
           //     trailing: IconButton(
           //         onPressed: () {
           //           Navigator.push(
           //               context,
           //               MaterialPageRoute(
-          //                 builder: (context) => const profilescreen(),
-          //               ));
+          //                   builder: (context) => Screenaddress(
+          //                         address: 'address',
+          //                         totals: totals.toInt(),
+          //                       )));
           //         },
           //         icon: const Icon(Icons.keyboard_arrow_right)),
           //   ),
           // ),
+         InkWell(
+            onTap: () {
+             privacy();
+            },
+            child: ListTile(
+              leading: const Icon(Icons.privacy_tip),
+              title: const Text('Privacy'),
+              trailing: IconButton(
+                  onPressed: () {
+                   privacy();
+                  },
+                  icon: const Icon(Icons.keyboard_arrow_right)),
+            ),
+          ),
           ListTile(
             onTap: () {
               alert(context);

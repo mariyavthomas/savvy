@@ -57,11 +57,12 @@ class _ViewofordersState extends State<Viewoforders> {
             // final imagePath = gromming.image;
 
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
                   Card(
-                    elevation: 5,
+                    elevation: 8,
+                    color: Colors.black,
                     child: Container(
                       width: 400,
                       height: 500,

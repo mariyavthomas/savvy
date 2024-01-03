@@ -12,14 +12,10 @@ import 'package:savvy/adminpages/database/product.dart';
 import 'package:savvy/adminpages/groomingsection/grommingdb/gromming.dart';
 import 'package:savvy/customerpages/addressdb/address.dart';
 import 'package:savvy/customerpages/gromming/grrombook.dart';
-//import 'package:savvy/adminpages/repositary/box.dart';
-//import 'package:savvy/customerpages/addtocart.dart';
-//import 'package:savvy/adminpages/database/logindb.dart';
-//import 'package:savvy/customerpages/splash.dart';
+
 import 'package:savvy/customerpages/home.dart';
 import 'package:savvy/customerpages/login.dart';
-//import 'package:savvy/customerpages/login.dart';
-//import 'package:savvy/customerpages/login.dart';
+
 import 'package:savvy/customerpages/profile.dart';
 import 'package:savvy/customerpages/settings.dart';
 import 'package:savvy/customerpages/splash.dart';
@@ -29,11 +25,23 @@ import 'package:savvy/customerpages/user%20database/logindatabase.dart';
 import 'customerpages/favorite/favorite.dart';
 import 'customerpages/user database/cart/cart.dart';
 import 'customerpages/user database/cart/order.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 // ignore: constant_identifier_names
 const Save_key = 'userlogin';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyAo1K1DEFUITQZb93jDCcFvoR90Lp0ZINI",
+  projectId: "savvydemo-93586",
+  //storageBucket: "savvydemo-93586.appspot.com",
+  messagingSenderId: "322330999565",
+  appId: "1:322330999565:web:11b1b84f8b9e62bacc8e44",
+ // measurementId: "G-CN9EB68BES"
+          
+         
+         ));
   await Hive.initFlutter();
   //await BoxHelper.openBox();
   Hive.registerAdapter(UserAdapter());
@@ -41,15 +49,28 @@ void main() async {
   Hive.registerAdapter(ProductAdapter());
   Hive.registerAdapter(AddressAdapter());
   Hive.registerAdapter(FavoriteAdapter());
- Hive.registerAdapter(CartAdapter());
- Hive.registerAdapter(Category1Adapter());
- Hive.registerAdapter(BookgromAdapter());
- Hive.registerAdapter(OrderhistoryModelAdapter());
-  runApp( MaterialApp(
-    
-    home: ScreenSpalsh(),
+  Hive.registerAdapter(CartAdapter());
+  Hive.registerAdapter(Category1Adapter());
+  Hive.registerAdapter(BookgromAdapter());
+  Hive.registerAdapter(OrderhistoryModelAdapter());
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  runApp(MaterialApp(
+    home: FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print('error');
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ScreenSpalsh();
+        }
+        return CircularProgressIndicator();
+      },
+    ),
     debugShowCheckedModeBanner: false,
-  ));
+  )
+//ScreenSpalsh(),
+      );
 }
 
 class MyApp extends StatefulWidget {
@@ -66,15 +87,16 @@ class _MyAppState extends State<MyApp> {
     const Screensettings(),
     const cartscreens(),
     const profilescreen()
-  ];@override
+  ];
+  @override
   void dispose() {
     Hive.close();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         bottomNavigationBar: BottomNavigationBar(
           unselectedIconTheme: const IconThemeData(color: Colors.grey),
           selectedIconTheme: const IconThemeData(color: Colors.blue),
