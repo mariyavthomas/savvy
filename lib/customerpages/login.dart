@@ -1,10 +1,3 @@
-
-// import 'package:casa_example/adminscreen.dart/bottomnav.dart';
-// import 'package:casa_example/color.dart';
-// import 'package:casa_example/databse/logind.dart';
-// import 'package:casa_example/main.dart';
-// import 'package:casa_example/signin.dart';
-// import 'package:casa_example/userscreen/bottomnav.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:savvy/adminpages/adminhome.dart';
@@ -41,23 +34,26 @@ class _LoginFormState extends State<LoginForm> {
         final _sharedPrefs = await SharedPreferences.getInstance();
         await _sharedPrefs.setBool(Save_key, true);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomeadimScreen(),));
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeadimScreen(),
+            ));
       } else {
-       showDialog(
-           context: context,
-           builder: (context) {
-             return AlertDialog(
-               title: const Text('Error'),
-               content: Text('Invalid email or password'),
-               actions: [
-                 TextButton(
-                     onPressed: () {
-                       Navigator.pop(context);
-                     },
-                     child: Text('OK'))
-               ],
-             );
-           });
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Error'),
+                content: Text('Invalid email or password'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('OK'))
+                ],
+              );
+            });
       }
       login(
         emailController.text,
@@ -72,27 +68,23 @@ class _LoginFormState extends State<LoginForm> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          
-          backgroundColor: Colors.white
-          ,
+          backgroundColor: Colors.white,
           title: Center(
             child: SizedBox(
-          width: 258.0,
-           child: TextLiquidFill(
-             text: 'Login Your Account',
-           waveColor: Color.fromARGB(255, 14, 62, 58),
-             boxBackgroundColor: const Color.fromARGB(255, 255, 252, 252),
-             textStyle: const TextStyle(
-                 fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-               fontStyle: FontStyle.italic),
-             boxHeight: 200.0,
-           ),
-       ),
-    
-      ),
+              width: 258.0,
+              child: TextLiquidFill(
+                text: 'Login Your Account',
+                waveColor: Color.fromARGB(255, 14, 62, 58),
+                boxBackgroundColor: const Color.fromARGB(255, 255, 252, 252),
+                textStyle: const TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic),
+                boxHeight: 200.0,
+              ),
+            ),
           ),
-      
+        ),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(10),
@@ -102,9 +94,7 @@ class _LoginFormState extends State<LoginForm> {
               children: [
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    
-                  ],
+                  children: [],
                 ),
                 const SizedBox(height: 5.0),
                 Form(
@@ -180,7 +170,8 @@ class _LoginFormState extends State<LoginForm> {
                           child: ElevatedButton(
                             onPressed: _submitForm,
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color.fromARGB(255, 67, 155, 148),
+                                backgroundColor:
+                                    Color.fromARGB(255, 67, 155, 148),
                                 fixedSize: Size(400, 45),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),
@@ -226,8 +217,9 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void login(String email, String password,BuildContext context) async {
-    final usersBox = await Hive.openBox<User>('users'); // Open the Hive box for users
+  void login(String email, String password, BuildContext context) async {
+    final usersBox =
+        await Hive.openBox<User>('users'); // Open the Hive box for users
 
     User? user;
 
@@ -250,7 +242,6 @@ class _LoginFormState extends State<LoginForm> {
         context,
         MaterialPageRoute(builder: (context) => const MyApp()),
       );
-     } 
-    
+    }
   }
 }

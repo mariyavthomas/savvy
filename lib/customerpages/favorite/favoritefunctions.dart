@@ -25,6 +25,7 @@ Future<void> addfav(Favorite value) async {
           
           decripation: data.decripation,
           ));
+           
   getallfav();
 }
 

@@ -27,6 +27,7 @@ class _ViewofordersState extends State<Viewoforders> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -36,9 +37,9 @@ class _ViewofordersState extends State<Viewoforders> {
             Navigator.pop(context);
           },
         ),
-        // actions: [IconButton(onPressed:
-
-        // , icon: Icon(Icons.refresh,color: Colors.black,))],
+      //   actions: [IconButton(onPressed: (){
+      //  Navigator.push(context, MaterialPageRoute(builder: (context)=>searchscreenorder()));
+      //   }, icon: Icon(Icons.search,color: Colors.black,))],
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
         title: Text(
@@ -59,19 +60,22 @@ class _ViewofordersState extends State<Viewoforders> {
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Card(
                     elevation: 8,
-                    color: Colors.black,
+                    //color: Colors.black,
                     child: Container(
                       width: 400,
                       height: 500,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Align(
-                              alignment: Alignment.topLeft,
+                              alignment: Alignment.center,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10.0),
@@ -80,121 +84,34 @@ class _ViewofordersState extends State<Viewoforders> {
                                 child: order.image != 0
                                     ? Image.file(
                                         File(order.image),
-                                        height:
-                                            150, // Adjust the height as needed
+                                        height: 150,
                                         width: 350,
                                         fit: BoxFit.cover,
                                       )
                                     : Placeholder(),
                               ),
                             ),
-                            SizedBox(
-                              height: 5,
-                            ),
+                            SizedBox(height: 20),
                             Text("Product Name: ${order.productname}"),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 85),
-                              child: Text("Price: ${order.price}"),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 85),
-                              child: Text("quantity: ${order.quantity}"),
-                            ),
+                            SizedBox(height: 5),
+                            Text("Price: ${order.price}"),
+                            SizedBox(height: 3),
+                            Text("Quantity: ${order.quantity}"),
                             Text('Address'),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 60),
-                              child: Text("Name: ${order.usrname}"),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 31),
-                              child: Text("Phone Number: ${order.mobile}"),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("Email : ${order.mail}"),
-                            // Center(child: Text("${booking.gender}")),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 35),
-                              child: Text("House Name: ${order.housename}"),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 35),
-                              child: Text("Dis: ${order.dis}"),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 35),
-                              child: Text("House Name: ${order.pincode}"),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 35),
-                              child: Text("House Name: ${order.post}"),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                width: 180,
-                                child: ListTile(
-                                  trailing: Icon(Icons.delete),
-                                  onTap: () {
-                                    // Show a confirmation dialog before deleting
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('Delete Confirmation'),
-                                          content: Text(
-                                              'Are you sure you want to delete this item?'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop(); // Close the dialog
-                                              },
-                                              child: Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                // Delete the item and close the dialog
-                                                order1.delete(order.id!);
-                                                Navigator.of(context).pop();
-                                                setState(() {
-                                                  order1.delete(order.id!);
-                                                  Navigator.of(context).pop();
-                                                });
-                                              },
-                                              child: Text('Delete'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  //title: Text('Delete'),
-                                ),
-                              ),
-                            ),
+                            Text("Name: ${order.usrname}"),
+                            SizedBox(height: 5),
+                            Text("Phone Number: ${order.mobile}"),
+                            SizedBox(height: 5),
+                            Text("Email: ${order.mail}"),
+                            SizedBox(height: 5),
+                            Text("House Name: ${order.housename}"),
+                            SizedBox(height: 5),
+                            Text("District: ${order.dis}"),
+                            SizedBox(height: 5),
+                            Text("Pincode: ${order.pincode}"),
+                            SizedBox(height: 5),
+                            Text("Post: ${order.post}"),
+                            
                           ],
                         ),
                       ),

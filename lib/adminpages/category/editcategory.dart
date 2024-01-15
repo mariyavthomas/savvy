@@ -1,7 +1,6 @@
 import 'dart:io';
 
 
-import 'package:savvy/adminpages/category/addcategory.dart';
 import 'package:savvy/adminpages/category/categoryfun.dart';
 import 'package:savvy/adminpages/category/categoty.dart';
 
@@ -138,7 +137,8 @@ class _CategoryeditingState extends State<Categoryediting> {
                         setState(() {
                             _updateCategory();
                           cate.getallcategory();
-                          Navigator.push(context, MaterialPageRoute(builder: (cts)=>ScreenaddCategory()));
+                          //Navigator.push(context, MaterialPageRoute(builder: (cts)=>ScreenaddCategory()));
+                          Navigator.pop(context);
                         });
                        // Navigator.pop(context);
                       }
@@ -175,5 +175,7 @@ class _CategoryeditingState extends State<Categoryediting> {
     categorylist.value.addAll(newlist);
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     categorylist.notifyListeners();
+    cate.getallcategory();
+    
   }
 }

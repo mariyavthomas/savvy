@@ -34,6 +34,7 @@ class _MybookingState extends State<Mybooking> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 238, 237, 237),
       appBar: AppBar(
@@ -122,7 +123,21 @@ class _MybookingState extends State<Mybooking> {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Center(
+                                 
+                                  Column(
+                                    children: [
+                                      Center(
+                                    child: Center(
+                                      child: Text(
+                                        "${booking.dateTime}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                   Center(
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 10),
                                       child: Text(
@@ -135,6 +150,21 @@ class _MybookingState extends State<Mybooking> {
                                       ),
                                     ),
                                   ),
+                                  //  Center(
+                                  //   child: Padding(
+                                  //     padding: const EdgeInsets.only(right: 10),
+                                  //     child: Text(
+                                  //       " ${booking.time}",
+                                  //       style: TextStyle(
+                                  //           fontSize: 18,
+                                  //           color:
+                                  //               Color.fromARGB(255, 211, 84, 6),
+                                  //           fontWeight: FontWeight.w500),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                    ],
+                                  )
                                 ]),
                             Row(
                               mainAxisSize: MainAxisSize.min,
@@ -230,7 +260,7 @@ class _MybookingState extends State<Mybooking> {
   }
 
   void showdata1(String name, String imagepath, String price, String discrp,
-      String category) {
+      String time) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -239,6 +269,7 @@ class _MybookingState extends State<Mybooking> {
           imagePath: imagepath,
           price: price,
           functionality: discrp,
+          time: time,
         ),
       ),
     );

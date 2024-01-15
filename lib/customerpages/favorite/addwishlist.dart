@@ -13,6 +13,7 @@ import 'package:savvy/customerpages/favorite/favoritefunctions.dart';
 Future<void> addfav_button(
   Product product,
   BuildContext context,
+  int count,
 ) async {
   await Hive.openBox<Favorite>('fav');
   final addfavBox = Hive.box<Favorite>('fav');
@@ -33,6 +34,7 @@ Future<void> addfav_button(
         image: product.image,
         id: -1);
     addfav(fav);
+    
 
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Added to Favourite'),
@@ -70,6 +72,7 @@ void removefav(BuildContext context, int? id) {
 Future<void> deletefav(context, int? id) async {
   final remove = await Hive.openBox<Favorite>('fav');
   remove.delete(id);
+ 
   getallfav();
 
   // Navigator.of(context)
@@ -85,6 +88,7 @@ Icon getIcon(Product product) {
     return Icon(
       Icons.favorite,
       color: Colors.red,
+
     );
   } else {
     return Icon(

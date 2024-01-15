@@ -44,15 +44,7 @@ class _cartscreensState extends State<cartscreens> {
         )),
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
-        actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  upgadecart(context, total);
-                });
-              },
-              icon: Icon(Icons.refresh))
-        ],
+       
       ),
       body: Column(
         children: [

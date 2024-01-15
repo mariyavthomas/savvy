@@ -5,6 +5,8 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:savvy/customerpages/user%20database/logindatabase.dart';
 
+import 'userfunction.dart';
+
 
 class EditProfileScreen extends StatefulWidget {
   final User? currentUser;
@@ -22,10 +24,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController numberController = TextEditingController();
   String? _selectedImage;
   final picker = ImagePicker();
+ Userfunction  user =Userfunction();
 
   @override
   void initState() {
     super.initState();
+ user.getall3();
     // Initialize text controllers with current user data
     nameController.text = widget.currentUser!.name;
     emailController.text = widget.currentUser!.email;
@@ -52,13 +56,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         backgroundColor: Colors.white,
         shadowColor: Colors.black,
         title: Text('Edit Profile',style: TextStyle(color: Colors.black),),
-        actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {});
-              },
-              icon: Icon(Icons.restore))
-        ],
+       
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -96,10 +94,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         onPressed: () async {
           // Save the edited profile data
          setState(() {
+           
            updateProfile(
             _selectedImage!,
             nameController.text,
             numberController.text,
+            
           );
          });
          
@@ -130,8 +130,10 @@ Navigator.pop(context);
 
     // Save the updated user back to the box
     userBox.put(currentUser.key, currentUser);
-
+  user.getall3();
+          
     // If needed, you can also update the widget.currentUser with the new information
     // widget.currentUser = currentUser;
   }
+
 }

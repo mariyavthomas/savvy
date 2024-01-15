@@ -271,12 +271,15 @@ void dispose() {
                             widget.booking.age = _age.text;
                             widget.booking.aggressive = _aggressive.text;
                             widget.booking.number = _number.text;
-                           // widget.booking.gender = _gender.text;
-                            // Check if a new image is selected
+                           
                     
-                            _updatebooking();
-                            setState(() {});
-                            Navigator.pop(context);
+                            
+                            setState(() {
+                              _updatebooking();
+                                Navigator.pop(context);
+                                booking.getallbooking();
+                            });
+                          
                           }
                         },
                         child: const Text('Save Changes'),
@@ -303,5 +306,6 @@ void dispose() {
     bookinglist.value.addAll(newlist);
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     bookinglist.notifyListeners();
+    booking.getallbooking();
   }
 }

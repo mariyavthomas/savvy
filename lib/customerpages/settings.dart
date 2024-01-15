@@ -79,32 +79,7 @@ class _ScreensettingsState extends State<Screensettings> {
                   icon: const Icon(Icons.keyboard_arrow_right)),
             ),
           ),
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (context) => Screenaddress(
-          //                   address: 'address',
-          //                   totals:totals.toInt(),
-          //                 )));
-          //   },
-          //   child: ListTile(
-          //     leading: const Icon(Icons.save),
-          //     title: const Text('Save Address'),
-          //     trailing: IconButton(
-          //         onPressed: () {
-          //           Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: (context) => Screenaddress(
-          //                         address: 'address',
-          //                         totals: totals.toInt(),
-          //                       )));
-          //         },
-          //         icon: const Icon(Icons.keyboard_arrow_right)),
-          //   ),
-          // ),
+         
          InkWell(
             onTap: () {
              privacy();

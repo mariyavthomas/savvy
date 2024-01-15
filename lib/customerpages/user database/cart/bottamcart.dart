@@ -35,7 +35,7 @@ class CartPaymBottom extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '\₹${widget.totels}',
+            '\Total Amount ₹${widget.totels}',
             style: const TextStyle(
               color: Colors.black,
               fontSize: 20,

@@ -11,12 +11,14 @@ class ScreenGrommingdetails extends StatefulWidget {
       required this.imagePath,
       required this.grommingname,
       required this.price,
-      required this.functionality});
+      required this.functionality,
+      required this.time});
   Color colors = Colors.white;
   final String imagePath;
   final grommingname;
   final price;
   final functionality;
+  final time;
 
   @override
   State<ScreenGrommingdetails> createState() => _ScreenGrommingdetailsState();
@@ -165,6 +167,7 @@ class _ScreenGrommingdetailsState extends State<ScreenGrommingdetails> {
                                   imagepath: widget.imagePath,
                                   grommingname: widget.grommingname,
                                   price: widget.price,
+                                  time:  widget.time,
                                 )));
                   },
                   child: const Text(

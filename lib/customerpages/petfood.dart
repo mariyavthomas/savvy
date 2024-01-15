@@ -24,7 +24,8 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
   // Pdhelper pdh = Pdhelper();
   TextEditingController searchController = TextEditingController();
   // ignore: unused_field
-  late Box<Product> _productBox = Hive.box<Product>('product');
+  // late Box<Product> _productBox = Hive.box<Product>('product');
+  late Box<Product> _productBox;
   CategoryHelper cate = CategoryHelper();
   // late Box<Category1>_categorybox=Hive.box(dbcate);
   int catenum = 0;
@@ -32,9 +33,20 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
   @override
   void initState() {
     super.initState();
+    _openBox();
     getall1();
     cate.getallcategory();
     getallfav();
+  }
+
+  Future<void> _openBox() async {
+    _productBox = await Hive.openBox<Product>('product');
+  }
+
+  @override
+  void dispose() {
+    _productBox.close();
+    super.dispose();
   }
 
   @override
@@ -155,8 +167,19 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                         },
                         child: Container(
                           // height: 300,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 233, 228, 228),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 182, 178, 178),
+                                blurRadius: 10
+                                // Add other BoxShadow properties as needed
+                              ),
+                            ],
+                          ),
                           // decoration: BoxDecoration(
-                          //     color: Colors.blue,
+                          //     color: Colors.blue,1
                           //     border: Border.all(color: Colors.black)),
                           child: Column(children: [
                             ClipRRect(
@@ -193,8 +216,7 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                                     " ₹${product.price}",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color:
-                                            Color.fromARGB(255, 211, 84, 6),
+                                        color: Color.fromARGB(255, 211, 84, 6),
                                         fontWeight: FontWeight.w500),
                                   ),
                                   SizedBox(
@@ -204,10 +226,7 @@ class _ScreenpetfoodState extends State<Screenpetfood> {
                                     icon: getIcon(product),
                                     onPressed: () {
                                       setState(() {
-                                        addfav_button(
-                                          product,
-                                          context,
-                                        );
+                                        addfav_button(product, context, index);
                                       });
                                     },
                                   ),

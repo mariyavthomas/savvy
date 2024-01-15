@@ -101,6 +101,7 @@ class _ScreenGrommingState extends State<ScreenGromming> {
                         },
                         child: Container(
                           //decoration: BoxDecoration(color: Colors.blue,border: Border.all(color: Colors.black)),
+                          decoration: BoxDecoration(color: Color.fromARGB(255, 239, 240, 240),borderRadius: BorderRadius.circular(20),boxShadow: [BoxShadow(blurRadius: 10,color:Color.fromARGB(255, 203, 202, 202) )]),
                           child: Column(children: [
                             SizedBox(
                               height: 5,
@@ -166,8 +167,8 @@ class _ScreenGrommingState extends State<ScreenGromming> {
     gromminglist.value = filteredProducts;
   }
 
-  void showdata1(String name, String imagepath, String price, String discrp,
-      String category) {
+  void showdata1(String name, String imagepath, String price, String discrp, String time,
+    ) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -176,6 +177,7 @@ class _ScreenGrommingState extends State<ScreenGromming> {
           imagePath: imagepath,
           price: price,
           functionality: discrp,
+          time:  time,
         ),
       ),
     );

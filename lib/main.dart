@@ -43,8 +43,9 @@ void main() async {
          
          ));
   await Hive.initFlutter();
-  //await BoxHelper.openBox();
-  Hive.registerAdapter(UserAdapter());
+  Hive.openBox<Favorite>('fav');
+  //Hive.openBox<Cart>('cart');
+  Hive.registerAdapter(UserAdapter()); 
   Hive.registerAdapter(GrommingAdapter());
   Hive.registerAdapter(ProductAdapter());
   Hive.registerAdapter(AddressAdapter());
@@ -73,6 +74,7 @@ void main() async {
       );
 }
 
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -81,27 +83,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // late  Box<Cart> cartBox =Hive.box<Cart>('cart');
   int indexNum = 0;
   List tabwidget = [
-    const ScreenHome(),
+  const  ScreenHome(),
     const Screensettings(),
-    const cartscreens(),
+   const  cartscreens(),
     const profilescreen()
   ];
-  @override
-  void dispose() {
-    Hive.close();
-    super.dispose();
-  }
+  //@override
+  // void dispose() {
+  //   //Hive.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           unselectedIconTheme: const IconThemeData(color: Colors.grey),
           selectedIconTheme: const IconThemeData(color: Colors.blue),
           selectedItemColor: Colors.blue,
-          items: const [
+          items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: "Home",
@@ -109,11 +113,15 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 label: "Settings",
-                backgroundColor: Colors.white),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.production_quantity_limits),
-                label: "Cart",
-                backgroundColor: Colors.white),
+                 backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+  icon: Icon(Icons.production_quantity_limits_outlined)
+  ,
+  label: "Cart",
+  backgroundColor: Colors.white,
+),
+
+
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: "Profile",

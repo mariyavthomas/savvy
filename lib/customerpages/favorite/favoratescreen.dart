@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:lottie/lottie.dart';
 import 'package:savvy/customerpages/favorite/addwishlist.dart';
 import 'package:savvy/customerpages/favorite/favorite.dart';
 import 'package:savvy/customerpages/favorite/favoritefunctions.dart';
@@ -21,26 +23,26 @@ class _FavouriteState extends State<Favourite> {
     super.initState();
     getallfav();
   }
-
+final favbox=Hive.box<Favorite>('fav');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      
       appBar: AppBar(
-       
         iconTheme: IconThemeData(color: Colors.black),
         shadowColor: Colors.black,
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text(
-          'Favourite',
-          style: TextStyle(color: Colors.black)
-        ),
+        title: Text('Favourite', style: TextStyle(color: Colors.black)),
       ),
-      body: Column(
+      body: favbox.isEmpty?Center(child: Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Container(
+                            child: Lottie.asset(
+                              'assets/image/cartemty.json',
+                            ),
+                          ),
+                        )):  Column(
         children: [
-          
           SizedBox(
             height: 25,
           ),
@@ -57,22 +59,22 @@ class _FavouriteState extends State<Favourite> {
                       mainAxisExtent: 290,
                     ),
                     itemBuilder: (context, index) {
-                      final addfav = favoritelist.reversed.toList()[index];
-                    
+                      
+                      final addfav = favoritelist[index];
+
                       return GestureDetector(
                         onTap: () {
-                         showdata1(
-                              addfav.productname,
-                              addfav.image,
-                              addfav.price,
-                              addfav.decripation,
-                             // addfav.category
-                              );
+                          showdata1(
+                            addfav.productname,
+                            addfav.image,
+                            addfav.price,
+                            addfav.decripation,
+                            // addfav.category
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Container(
-                            
                             child: Column(
                               children: [
                                 ClipRRect(
@@ -99,17 +101,16 @@ class _FavouriteState extends State<Favourite> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                     
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                           Center(
-                                        child: Text(addfav.price,
-                                            style: GoogleFonts.rubik(
-                                                color: Colors.green,
-                                                fontSize: 15)),
-                                      ),
+                                          Center(
+                                            child: Text(addfav.price,
+                                                style: GoogleFonts.rubik(
+                                                    color: Colors.green,
+                                                    fontSize: 15)),
+                                          ),
                                           IconButton(
                                             icon: Icon(
                                               Icons.favorite,
@@ -121,7 +122,6 @@ class _FavouriteState extends State<Favourite> {
                                               });
                                             },
                                           ),
-                                         
                                         ],
                                       )
                                     ],
@@ -140,8 +140,13 @@ class _FavouriteState extends State<Favourite> {
       ),
     );
   }
-  void showdata1(String name, String imagepath, String price, String discrp,
-     ) {
+
+  void showdata1(
+    String name,
+    String imagepath,
+    String price,
+    String discrp,
+  ) {
     Navigator.push(
       context,
       MaterialPageRoute(

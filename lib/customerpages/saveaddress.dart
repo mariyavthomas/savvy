@@ -129,7 +129,7 @@ class _ScreenaddressState extends State<Screenaddress> {
                                 ],
                               ),
                               SizedBox(
-                                width: 30,
+                                width: 150,
                               ),
                               Column(
                                 children: [
@@ -157,7 +157,7 @@ class _ScreenaddressState extends State<Screenaddress> {
                                 ],
                               ),
                               SizedBox(
-                                width: 20,
+                                width: 10,
                               )
                             ],
                           ),

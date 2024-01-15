@@ -181,8 +181,8 @@ class _GrooprmingeditingState extends State<Grooprmingediting> {
                           widget.grooming.image = _selectedImage;
                         }
 
-                        _updategromming();
-                        setState(() {});
+                       
+                        setState(() { _updategromming();});
                         Navigator.pop(context);
                       }
                     },
@@ -218,5 +218,7 @@ class _GrooprmingeditingState extends State<Grooprmingediting> {
     gromminglist.value.addAll(newlist);
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     gromminglist.notifyListeners();
+    groHelper.getall2();
+
   }
 }

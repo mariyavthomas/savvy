@@ -65,119 +65,90 @@ class _ViewofbookingState extends State<Viewofbooking> {
                     Card(
                       elevation: 5,
                       child: Container(
-                        width: 400,
-                        height: 350,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                               Align(
-                                alignment: Alignment.topLeft,
-                                 child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10.0),
-                                            topRight: Radius.circular(10.0),
-                                          ),
-                                          child: booking.imagePath != 0
-                                              ? Image.file(
-                                                  File(booking.imagePath),
-                                                  height:
-                                                      150, // Adjust the height as needed
-                                                  width: 350,
-                                                  fit: BoxFit.cover,
-                                                )
-                                              : Placeholder(),
-                                        ),
-                               ),
-                               SizedBox(
-                                height: 5,
-                              ),
-                              Text("Gromming Name: ${booking.grommingname}"),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 85),
-                                child: Text("Breed: ${booking.breed}"),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 60),
-                                child: Text("Age of Pet: ${booking.age}"),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                               Padding(
-                                 padding: const EdgeInsets.only(right: 31),
-                                 child: Text("Date: ${booking.dateTime}"),
-                               ),
-                               SizedBox(
-                                height: 5,
-                              ),
-                                Text("Aggressive or Not: ${booking.aggressive}"),
-                                // Center(child: Text("${booking.gender}")),
-                                SizedBox(
-                                height: 5,
-                              ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 35),
-                                    child: Text("Phone Number: ${booking.number}"),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Container(
-                                      width: 180,
-                                      child: ListTile(
-                                        trailing: Icon(Icons.delete),
-                                        onTap: () {
-                                          // Show a confirmation dialog before deleting
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title:
-                                                    Text('Delete Confirmation'),
-                                                content: Text(
-                                                    'Are you sure you want to delete this item?'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop(); // Close the dialog
-                                                    },
-                                                    child: Text('Cancel'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      // Delete the item and close the dialog
-                                                      book.deletebooking(
-                                                          context, booking.id);
-                                                      Navigator.of(context).pop();
-                                                      setState(() {
-                                                        book.deletebooking(
-                                                            context, booking.id);
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      });
-                                                    },
-                                                    child: Text('Delete'),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                        //title: Text('Delete'),
-                                      ),
-                                    ),
-                                  ),
-                            ],
-                          ),
+  width: 400,
+  height: 350,
+  child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
+            child: booking.imagePath != 0
+                ? Image.file(
+                    File(booking.imagePath),
+                    height: 150,
+                    width: 350,
+                    fit: BoxFit.cover,
+                  )
+                : Placeholder(),
+          ),
+        ),
+        SizedBox(height: 5),
+        Text("Grooming Name: ${booking.grommingname}"),
+        SizedBox(height: 5),
+        Text("Breed: ${booking.breed}"),
+        SizedBox(height: 3),
+        Text("Age of Pet: ${booking.age}"),
+        SizedBox(height: 5),
+        Text("Date: ${booking.dateTime}"),
+        SizedBox(height: 5),
+        Text("Aggressive or Not: ${booking.aggressive}"),
+        SizedBox(height: 5),
+        Text("Phone Number: ${booking.number}"),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Container(
+            width: 180,
+            child: ListTile(
+              trailing: Icon(Icons.delete),
+              onTap: () {
+                // Show a confirmation dialog before deleting
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Delete Confirmation'),
+                      content:
+                          Text('Are you sure you want to delete this item?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: Text('Cancel'),
                         ),
-                      ),
+                        TextButton(
+                          onPressed: () {
+                            // Delete the item and close the dialog
+                            book.deletebooking(context, booking.id);
+                            Navigator.of(context).pop();
+                            setState(() {
+                              book.deletebooking(context, booking.id);
+                              Navigator.of(context).pop();
+                            });
+                          },
+                          child: Text('Delete'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
                     ),
                     SizedBox(
                       height: 10,

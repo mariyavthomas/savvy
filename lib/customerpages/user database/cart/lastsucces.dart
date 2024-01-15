@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:savvy/main.dart';
 
@@ -13,7 +12,7 @@ class _successState extends State<success> {
   @override
   void initState() {
     super.initState();
-    succes();
+    //succes();
   }
 
   final colorizeColors = [
@@ -42,38 +41,54 @@ class _successState extends State<success> {
               height: 700,
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 50,top: 350),
+          //   child: SizedBox(
+          //     child: AnimatedTextKit(
+          //       animatedTexts: [
+          //         ColorizeAnimatedText(
+          //           'order',
+          //           textStyle: colorizeTextStyle,
+          //           colors: colorizeColors,
+          //         ),
+          //          ColorizeAnimatedText(
+          //           'successfully',
+          //           textStyle: colorizeTextStyle,
+          //           colors: colorizeColors,
+          //         ),
+                  
+          //       ],
+          //       //isRepeatingAnimation: true,
+          //       onTap: () {
+                  
+          //       },
+          //     ),
+          //   ),
+          // )
           Padding(
-            padding: const EdgeInsets.only(left: 50,top: 350),
-            child: SizedBox(
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  ColorizeAnimatedText(
-                    'order',
-                    textStyle: colorizeTextStyle,
-                    colors: colorizeColors,
-                  ),
-                   ColorizeAnimatedText(
-                    'successfully',
-                    textStyle: colorizeTextStyle,
-                    colors: colorizeColors,
-                  ),
-                  
-                ],
-                //isRepeatingAnimation: true,
-                onTap: () {
-                  
-                },
-              ),
-            ),
+            padding: const EdgeInsets.only(top: 650,left: 150),
+            child: Text('Successfully !!',style: TextStyle(fontStyle: FontStyle.italic,fontSize: 20,fontWeight: FontWeight.w400),),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 690,left: 110),
+            child: Text('Your Order was done successfully',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400),),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 730,left: 90),
+            child: ElevatedButton(
+              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.black),fixedSize: MaterialStatePropertyAll(Size(250, 40))),
+              onPressed: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
+              }, child: Text(' Go to Home')),
           )
         ],
       ),
     );
   }
 
-  Future<void> succes() async {
-    await Future.delayed(Duration(seconds: 5));
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MyApp()));
-  }
+  // Future<void> succes() async {
+  //   await Future.delayed(Duration(seconds: 3));
+  //   Navigator.pushReplacement(
+  //       context, MaterialPageRoute(builder: (context) => MyApp()));
+  // }
 }

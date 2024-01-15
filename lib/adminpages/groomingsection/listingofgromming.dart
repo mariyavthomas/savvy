@@ -23,9 +23,19 @@ class _GromminglistState extends State<Gromminglist> {
     
     super.initState();
     grohelp.getall2();
+  mariya();
+    
   }
+   void mariya(){
+      Future.delayed(Duration(microseconds: 1),(){
+      setState(() {
+        
+      });
+    });
+    }
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -115,45 +125,50 @@ class _GromminglistState extends State<Gromminglist> {
                           );
                         })
                   ]),
-                  child: Container(
-                    width: 400,
-                    height: 100,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                         
-                          child: Container(
-                            width: 150,
-                            height: 101,
-                            // ignore: unnecessary_null_comparison
-                            child: imagePath != null
-                                ? Image.file(File(
-                                    imagePath)) // Display image from file path
-                                : Placeholder(), // Placeholder if no image path is provided
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,bottom: 5,top: 0,right: 10),
+                    child: Card(
+                      child: Container(
+                        width: 400,
+                        height: 100,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                             
+                              child: Container(
+                                width: 150,
+                                height: 101,
+                                // ignore: unnecessary_null_comparison
+                                child: imagePath != null
+                                    ? Image.file(File(
+                                        imagePath)) // Display image from file path
+                                    : Placeholder(), // Placeholder if no image path is provided
+                                decoration: ShapeDecoration(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            Positioned(
+                              left: 160,
+                              top: 20,
+                              child: Text("${gromming.grommingname}",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),)
+                            ),
+                           
+                            Positioned(
+                              left: 160,
+                              top: 50,
+                              child: Text("₹${gromming.price}",style: TextStyle(fontWeight: FontWeight.bold),)
+                            ),
+                            Positioned(
+                              left: 160,
+                              top: 70,
+                              child: Text("Time:${gromming.time}",style: TextStyle(fontWeight: FontWeight.bold),)
+                            ),
+                          ],
                         ),
-                        Positioned(
-                          left: 160,
-                          top: 20,
-                          child: Text("${gromming.grommingname}",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),)
-                        ),
-                       
-                        Positioned(
-                          left: 160,
-                          top: 50,
-                          child: Text("₹${gromming.price}",style: TextStyle(fontWeight: FontWeight.bold),)
-                        ),
-                        Positioned(
-                          left: 160,
-                          top: 70,
-                          child: Text("Time:${gromming.time}",style: TextStyle(fontWeight: FontWeight.bold),)
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

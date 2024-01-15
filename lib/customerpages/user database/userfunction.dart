@@ -8,7 +8,7 @@ import 'package:savvy/customerpages/user%20database/logindatabase.dart';
 ValueNotifier<List<User>>userlist=ValueNotifier([]);
 String users='users';
 
-
+class Userfunction {
   Future<void> save3(User value) async{
     final save = await Hive.openBox<User>(users);
     final email =await save.add(value);
@@ -34,3 +34,4 @@ String users='users';
   }
   
  
+}

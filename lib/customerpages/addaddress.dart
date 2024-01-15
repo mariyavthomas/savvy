@@ -67,7 +67,7 @@ bool isPhone(String input) =>
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a address name';
+                          return 'Please enter a  name';
                         }
                         return null;
                       },
@@ -98,7 +98,7 @@ bool isPhone(String input) =>
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter password';
+                          return 'Please enter House name';
                         }
                         return null;
                       },
@@ -115,7 +115,7 @@ bool isPhone(String input) =>
                           hintText: "Enter House Name",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
-                            Icons.lock,
+                            Icons.home,
                             color: Colors.grey,
                           ),
                           border: OutlineInputBorder(
@@ -137,7 +137,7 @@ bool isPhone(String input) =>
                           hintText: "Enter your Pin Number",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
-                            Icons.mobile_friendly,
+                            Icons.pin,
                             color: Colors.grey,
                           ),
                           border: OutlineInputBorder(
@@ -145,7 +145,7 @@ bool isPhone(String input) =>
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (!isPinCode(value!)) {
-                          return 'Please Enter Valid Number';
+                          return 'Please Enter Valid pin Number';
                         } else {
                           return null;
                         }
@@ -161,7 +161,7 @@ bool isPhone(String input) =>
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter password';
+                          return 'Please enter post office ';
                         }
                         return null;
                       },
@@ -178,7 +178,7 @@ bool isPhone(String input) =>
                           hintText: "Enter Post",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
-                            Icons.lock,
+                            Icons.post_add,
                             color: Colors.grey,
                           ),
                           border: OutlineInputBorder(
@@ -209,7 +209,7 @@ bool isPhone(String input) =>
                           hintText: "Enter District",
                           hintStyle: TextStyle(color: Colors.grey),
                           prefixIcon: Icon(
-                            Icons.lock,
+                            Icons.do_not_disturb_on_total_silence_outlined,
                             color: Colors.grey,
                           ),
                           border: OutlineInputBorder(
@@ -239,7 +239,7 @@ bool isPhone(String input) =>
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (!isPhone(value!)) {
-                          return 'Please Enter Valid Number';
+                          return 'Please Enter Valid Phone  Number';
                         } else {
                           return null;
                         }

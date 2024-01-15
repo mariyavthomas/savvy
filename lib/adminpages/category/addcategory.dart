@@ -69,11 +69,7 @@ class _ScreenaddCategoryState extends State<ScreenaddCategory> {
             color: Colors.black,
           ),
         ),
-        actions: [IconButton(onPressed: (){
-          setState(() {
-          set();
-          });
-        }, icon: Icon(Icons.refresh))],
+       
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:savvy/customerpages/user%20database/editingprofile.dart';
 import 'package:savvy/customerpages/user%20database/logindatabase.dart';
+import 'package:savvy/customerpages/user%20database/userfunction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
@@ -17,10 +18,14 @@ class profilescreen extends StatefulWidget {
 }
 
 class _profilescreenState extends State<profilescreen> {
+
+  Userfunction user =Userfunction();
   @override
   void initState() {
     super.initState();
+   //user.getall3();
     getUser();
+    
   }
 
   Future<void> getUser() async {
@@ -31,7 +36,7 @@ class _profilescreenState extends State<profilescreen> {
       (user) => user.email == userEmail,
     );
     setState(() {
-      
+      user.getall3();
     });
   }
 
@@ -47,6 +52,11 @@ class _profilescreenState extends State<profilescreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(microseconds: 1),(){
+      setState(() {
+        
+      });
+    });
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.black,
@@ -70,11 +80,7 @@ class _profilescreenState extends State<profilescreen> {
               );
             },
           ),
-          IconButton(onPressed: (){
-            setState(() {
-              
-            });
-          }, icon: Icon(Icons.refresh,color: Colors.black,))
+         
         ],
       ),
       body: Column(

@@ -170,7 +170,7 @@ class _searchgrommState extends State<searchgromm> {
   }
 
   void showDatas(String name,  String imagePath, String price,String discrp,
-     String category ) {
+     String time ) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -179,6 +179,7 @@ class _searchgrommState extends State<searchgromm> {
           imagePath: imagePath,
           price: price,
           functionality: discrp,
+          time: time,
         ),
       ),
     );

@@ -3,13 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:savvy/customerpages/gromming/bookingfunction.dart';
 import 'package:savvy/customerpages/gromming/grrombook.dart';
+import 'package:savvy/main.dart';
 
 class Screenbooking extends StatefulWidget {
   const Screenbooking(
-      {super.key, required this.imagepath, required this.grommingname, required this.price});
+      {super.key, required this.imagepath, required this.grommingname, required this.price,required this.time});
   final String imagepath;
   final grommingname;
   final price;
+  final time;
 
   @override
   State<Screenbooking> createState() => _ScreenbookingState();
@@ -118,31 +120,34 @@ class _ScreenbookingState extends State<Screenbooking> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: numbercontroller,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: const InputDecoration(
-                        hintText: 'Phone Number',
-                        fillColor: Color(0xABFFFEFE),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 20),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'please enter a number';
-                      }
-
-                      if (!isPhone(value)) {
-                        return 'Enter Valid Phone Number';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSaved: (value) {
-                      numbercontroller.text = value!;
-                    },
-                  ),
+                      controller: numbercontroller,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                          labelText: "Mobile number",
+                          labelStyle: TextStyle(
+                              color:Colors.grey,
+                             // fontWeight: FontWeight.w800
+                              ),
+                          hintText: "Enter your number",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          prefixIcon: Icon(
+                            Icons.mobile_friendly,
+                            color: Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (!isPhone(value!)) {
+                          return 'Please Enter Valid Phone  Number';
+                        } else {
+                          return null;
+                        }
+                      },
+                      onSaved: (value) {
+                        numbercontroller.text = value!;
+                      },
+                    ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -234,7 +239,7 @@ class _ScreenbookingState extends State<Screenbooking> {
                 onPressed: () {
                   if (formkey.currentState!.validate()) {
                     formkey.currentState!.save();
-
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
                     setState(() {
                       addBooking();
                       ageController.clear();

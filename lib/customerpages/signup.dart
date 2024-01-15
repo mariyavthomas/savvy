@@ -19,7 +19,7 @@ class signin extends StatefulWidget {
 
 
 class _signinState extends State<signin> {
-
+Userfunction user1=Userfunction();
    bool isPhone(String input) =>
       RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
           .hasMatch(input);
@@ -328,7 +328,7 @@ class _signinState extends State<signin> {
             );
           },
         );
-        getall3();
+      user1.getall3();
       }
     }
   }

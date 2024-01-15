@@ -73,31 +73,7 @@ class _ScreenpdetailsState extends State<Screenpdetails> {
                   ),
                 ),
               ),
-              //      Align(
-              //   alignment: Alignment.topRight,
-              //   child: IconButton(
-              //       onPressed: () {
 
-              //         setState(() {
-              //           if(widget.colors== Colors.white){
-              //             widget.colors=Colors.red;
-              //           }
-              //           else{
-              //             widget.colors= Colors.white;
-              //           }
-              //         });
-              //        addfav_button(widget.productname,context);
-              //        print(widget.productname);
-              //       },
-              //       icon: Icon(
-              //         Icons.favorite,
-
-              //         color:widget.colors,
-              //         size: 30,
-              //       )),
-              // ),
-              
-              
               Center(
                 child: Text(
                   widget.productname!,
@@ -167,32 +143,24 @@ class _ScreenpdetailsState extends State<Screenpdetails> {
               SizedBox(
                 height: 19,
               ),
-              Text(
-                widget.decripation,
+              Center(
+                child: Container(
+                  height: 200,
+                  width: 400,
+                  decoration: BoxDecoration(border: Border.all()),
+                  child: Center(
+                    child: Text(
+                      widget.decripation,
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
-                height: 20,
+                height: 50,
               )
             ],
           ),
-          // Align(
-          //     alignment: Alignment.bottomRight,
-          //     child: ElevatedButton(
-          //         style: const ButtonStyle(
-          //             backgroundColor: MaterialStatePropertyAll(Colors.green),
-          //             fixedSize: MaterialStatePropertyAll(Size(205, 50))),
-          //         onPressed: () {
-          //           Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: (context) => Screenaddress(
-          //                         address: 'address',
-          //                       )));
-          //         },
-          //         child: const Text(
-          //           'Place Order',
-          //           style: TextStyle(fontSize: 17),
-          //         ))),
+         
           Align(
             alignment: Alignment.bottomLeft,
             child: ElevatedButton.icon(

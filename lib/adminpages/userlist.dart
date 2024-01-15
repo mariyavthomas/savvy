@@ -13,10 +13,11 @@ class Userlist extends StatefulWidget {
 }
 
 class _UserlistState extends State<Userlist> {
+  Userfunction user= Userfunction();
   @override
   void initState() {
     super.initState();
-    getall3();
+  user. getall3();
   }
 
   @override
