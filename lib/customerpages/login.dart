@@ -186,6 +186,7 @@ class _LoginFormState extends State<LoginForm> {
                         const SizedBox(
                           height: 10,
                         ),
+                        //
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
